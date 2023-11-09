@@ -51,4 +51,24 @@ class StudentController extends AbstractController
         ]);
 
     }
+
+    #[Route('/student/{id}/delete', name: 'delete_student')]
+    public function delete(Student $student, EntityManagerInterface $entityManager) : Response {
+
+        // remove: enlève de la collection l'employé ciblé
+        // flush : fait la requête SQl auprès de la BD
+        $entityManager->remove($student);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_student');
+    }
+
+     // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
+     #[Route('/student/{id}', name: 'show_student')]
+     public function show(Student $student): Response {
+ 
+         return $this->render('student/show.html.twig', [
+             'student' => $student
+         ]);
+     }
 }
