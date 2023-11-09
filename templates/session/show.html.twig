@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail session{% endblock %}
+
+{% block body %}
+
+    <h1>Détail session: {{ session.formation.name}}</h1>
+
+    Dates: du {{session.startDate|date("d.m.Y")}} au {{session.endDate|date("d.m.Y")}} <br>
+    Nombre de place total : {{ session.nbPlaceTotal}} <br>
+    Nombre d'inscrits : <br>
+    Nombre de place restante:  <br>
+
+    <h2>Détail des modules</h2>
+
+    {% if session.programmes| length > 0 %}
+
+            {% for programme in session.programmes %}
+                {{programme.ModuleFormation.name}} ( {{programme.duration}} jours) <br>
+            {% endfor %}
+        {% else %}
+            <p>Aucun module .</p>
+        {% endif %}
+
+
+    <h2>Détail des stagiaires inscrits</h2>
+   
+
+{% endblock %}
