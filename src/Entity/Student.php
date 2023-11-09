@@ -75,6 +75,13 @@ class Student
         return $this;
     }
 
+    public function getAge():  string
+    {
+        $now = new \DateTime();
+        $interval = $this->birthday->diff($now);
+        return $interval->format("%Y");
+    }
+
     public function getFirstName(): ?string
     {
         return $this->firstName;
