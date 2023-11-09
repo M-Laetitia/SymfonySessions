@@ -1,0 +1,64 @@
+/*~ ---------------------------------- */
+/*~ LIST STUDENTS                      */
+/*~ ---------------------------------- */
+
+.usersList .top {
+    background-color:#f5e9eb;
+    border-radius: 0.6rem;
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    
+}
+
+.usersList .top h1 {
+    font-size: var(--medium-font-size);
+    color: #f58c93;  
+}
+
+.usersList .top i {
+    color: #9fa3e0;
+}
+
+.list-person {
+    /* background-color: red; */
+    width: 100%;
+    margin-top: 2rem;
+    
+}
+
+.list-person .top-list {
+    background-color: #ffffff;
+    border-radius: 0.6rem;
+    height: 3rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    justify-items: center;
+    margin-bottom: 1.5rem;
+    font-weight: var(--font-medium);
+}
+
+.list-person .content-list{
+    border-radius: 0.6rem;
+    overflow: hidden;
+}
+
+
+.list-person .content-list div {
+    background-color: #ffffff;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    justify-items: center;
+    border-bottom: 1px solid #c7c9e9;
+    padding: 1.3rem;
+}
+
+.list-person .content-list div p:nth-child(1) a {
+    color:#5858ba;
+    font-weight: var(--font-medium);
+}
+
