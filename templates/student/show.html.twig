@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un stagiaire{% endblock %}
+
+{% block body %}
+
+    <h1>Détail d'un stagiaire</h1>
+
+    <h2> {{ student }}</h2>
+
+    <p>
+    
+        {# Utiliser twig: #}
+        Nom : {{ student}} <br> 
+        Sexe : {{student.sexe}} <br>
+        Mail : {{student.email}} <br>
+        Téléphone : {{student.phoneNumber}} <br>
+        Ville : {{student.city}} <br>
+        Date de naissance: {{student.birthday|date("d.m.Y")}} <br>
+        Age: {{ student.age}}  ans <br>
+
+    </p>
+
+    <h3>Sessions en cours</h3>
+
+    {# mettre condition pour vérifier si session en cours #}
+
+    <h4>Sessions suivies</h4>
+
+    {# mettre condition pour vérifier si précédentes sessions suivies #}
+
+
+{% endblock %}
