@@ -22,7 +22,7 @@ class Programme
 
     #[ORM\ManyToOne(inversedBy: 'programmes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?ModuleFormation $ModuleFormation = null;
+    private ?ModuleFormation $moduleFormation = null;
 
     public function getId(): ?int
     {
@@ -55,12 +55,12 @@ class Programme
 
     public function getModuleFormation(): ?ModuleFormation
     {
-        return $this->ModuleFormation;
+        return $this->moduleFormation;
     }
 
-    public function setModuleFormation(?ModuleFormation $ModuleFormation): static
+    public function setModuleFormation(?ModuleFormation $moduleFormation): static
     {
-        $this->ModuleFormation = $ModuleFormation;
+        $this->$moduleFormation = $moduleFormation;
 
         return $this;
     }

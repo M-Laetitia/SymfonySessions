@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Category;
+use App\Entity\ModuleFormation;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -23,7 +25,7 @@ class Category
 
     public function __construct()
     {
-        $this->moduleFormation = new ArrayCollection();
+        $this->moduleFormations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,15 +48,15 @@ class Category
     /**
      * @return Collection<int, moduleFormation>
      */
-    public function getModuleFormation(): Collection
+    public function getModuleFormations(): Collection
     {
-        return $this->moduleFormation;
+        return $this->moduleFormations;
     }
 
     public function addModuleFormation(ModuleFormation $moduleFormation): static
     {
-        if (!$this->moduleFormation->contains($moduleFormation)) {
-            $this->moduleFormation->add($moduleFormation);
+        if (!$this->moduleFormations->contains($moduleFormation)) {
+            $this->moduleFormations->add($moduleFormation);
             $moduleFormation->setCategory($this);
         }
 
@@ -63,7 +65,7 @@ class Category
 
     public function removeModuleFormation(ModuleFormation $moduleFormation): static
     {
-        if ($this->moduleFormation->removeElement($moduleFormation)) {
+        if ($this->moduleFormations->removeElement($moduleFormation)) {
             // set the owning side to null (unless already changed)
             if ($moduleFormation->getCategory() === $this) {
                 $moduleFormation->setCategory(null);

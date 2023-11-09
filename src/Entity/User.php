@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Session;
+use App\Entity\ModuleFormation;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -44,15 +46,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $isVerified = false;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Session::class, orphanRemoval: true)]
-    private Collection $session;
+    private Collection $sessions;
 
     #[ORM\ManyToMany(targetEntity: ModuleFormation::class, inversedBy: 'users')]
     private Collection $moduleFormations;
 
     public function __construct()
     {
-        $this->session = new ArrayCollection();
-        $this->moduleFormation = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
+        $this->moduleFormations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -176,15 +178,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, session>
      */
-    public function getSession(): Collection
+    public function getSessions(): Collection
     {
-        return $this->session;
+        return $this->sessions;
     }
 
     public function addSession(Session $session): static
     {
-        if (!$this->session->contains($session)) {
-            $this->session->add($session);
+        if (!$this->sessions->contains($session)) {
+            $this->sessions->add($session);
             $session->setUser($this);
         }
 
@@ -193,7 +195,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeSession(Session $session): static
     {
-        if ($this->session->removeElement($session)) {
+        if ($this->sessions->removeElement($session)) {
             // set the owning side to null (unless already changed)
             if ($session->getUser() === $this) {
                 $session->setUser(null);
@@ -206,15 +208,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, moduleFormation>
      */
-    public function getModuleFormation(): Collection
+    public function getModuleFormations(): Collection
     {
-        return $this->moduleFormation;
+        return $this->moduleFormations;
     }
 
     public function addModuleFormation(ModuleFormation $moduleFormation): static
     {
-        if (!$this->moduleFormation->contains($moduleFormation)) {
-            $this->moduleFormation->add($moduleFormation);
+        if (!$this->moduleFormations->contains($moduleFormation)) {
+            $this->moduleFormations->add($moduleFormation);
         }
 
         return $this;
@@ -222,7 +224,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeModuleFormation(ModuleFormation $moduleFormation): static
     {
-        $this->moduleFormation->removeElement($moduleFormation);
+        $this->moduleFormations->removeElement($moduleFormation);
 
         return $this;
     }

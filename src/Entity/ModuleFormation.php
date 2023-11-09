@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
+use App\Entity\Category;
+use App\Entity\Programme;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\ModuleFormationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ModuleFormationRepository::class)]
 class ModuleFormation
@@ -18,13 +21,13 @@ class ModuleFormation
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'ModuleFormation', targetEntity: Programme::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'moduleFormation', targetEntity: Programme::class, orphanRemoval: true)]
     private Collection $programmes;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'moduleFormation')]
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'moduleFormations')]
     private Collection $users;
 
-    #[ORM\ManyToOne(inversedBy: 'moduleFormation')]
+    #[ORM\ManyToOne(inversedBy: 'moduleFormations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 

@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\SessionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Student;
+use App\Entity\Formation;
+use App\Entity\Programme;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SessionRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: SessionRepository::class)]
 class Session
@@ -30,14 +33,14 @@ class Session
     #[ORM\OneToMany(mappedBy: 'session', targetEntity: Programme::class, orphanRemoval: true)]
     private Collection $programmes;
 
-    #[ORM\ManyToMany(targetEntity: Student::class, mappedBy: 'session')]
+    #[ORM\ManyToMany(targetEntity: Student::class, mappedBy: 'sessions')]
     private Collection $students;
 
-    #[ORM\ManyToOne(inversedBy: 'session')]
+    #[ORM\ManyToOne(inversedBy: 'sessions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Formation $formation = null;
 
-    #[ORM\ManyToOne(inversedBy: 'session')]
+    #[ORM\ManyToOne(inversedBy: 'sessions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
@@ -169,5 +172,10 @@ class Session
         $this->user = $user;
 
         return $this;
+    }
+
+    public function __toString() {
+        
+        return $this->startDate. " " .$this->endDate;
     }
 }
