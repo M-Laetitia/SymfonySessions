@@ -11,6 +11,34 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+        {% if app.user %}
+            <a href=" {{ path('app_logout') }}">Se déconnecter</a>
+            <a href="#">HOME</a>
+            <a href="#">SESSION</a>
+            <a href="#">STAGIAIRE</a>
+            <a href="#">FORMATEURS</a>
+            <a href="#">profil</a>
+        {% else %}
+            <a href=" {{ path('app_login') }}">Se connecter</a>
+            <a href=" {{ path('app_register') }}">S'enregistrer'</a>
+        {% endif %}
+
+        {# <nav>
+            <ul>
+                <li>
+                    <a href="">Enregistrer</a>
+                </li>
+
+                <li>
+                    <a href="">Login</a>
+                </li>
+            </ul>
+        </nav> #}
+
+        {% block body %}
+
+        {% endblock %}
+
     </body>
 </html>
