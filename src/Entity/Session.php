@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SessionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,8 +25,27 @@ class Session
     #[ORM\Column]
     private ?int $nbPlaceTotal = null;
 
-    #[ORM\Column]
-    private ?int $nbPlaceBooked = null;
+
+
+    #[ORM\OneToMany(mappedBy: 'session', targetEntity: Programme::class, orphanRemoval: true)]
+    private Collection $programmes;
+
+    #[ORM\ManyToMany(targetEntity: Student::class, mappedBy: 'session')]
+    private Collection $students;
+
+    #[ORM\ManyToOne(inversedBy: 'session')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Formation $formation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'session')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+    public function __construct()
+    {
+        $this->programmes = new ArrayCollection();
+        $this->students = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -67,14 +88,85 @@ class Session
         return $this;
     }
 
-    public function getNbPlaceBooked(): ?int
+ 
+
+    /**
+     * @return Collection<int, Programme>
+     */
+    public function getProgrammes(): Collection
     {
-        return $this->nbPlaceBooked;
+        return $this->programmes;
     }
 
-    public function setNbPlaceBooked(int $nbPlaceBooked): static
+    public function addProgramme(Programme $programme): static
     {
-        $this->nbPlaceBooked = $nbPlaceBooked;
+        if (!$this->programmes->contains($programme)) {
+            $this->programmes->add($programme);
+            $programme->setSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgramme(Programme $programme): static
+    {
+        if ($this->programmes->removeElement($programme)) {
+            // set the owning side to null (unless already changed)
+            if ($programme->getSession() === $this) {
+                $programme->setSession(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Student>
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(Student $student): static
+    {
+        if (!$this->students->contains($student)) {
+            $this->students->add($student);
+            $student->addSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Student $student): static
+    {
+        if ($this->students->removeElement($student)) {
+            $student->removeSession($this);
+        }
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): static
+    {
+        $this->formation = $formation;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
