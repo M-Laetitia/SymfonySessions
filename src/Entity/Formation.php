@@ -19,7 +19,7 @@ class Formation
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'formation', targetEntity: Session::class, orphanRemoval: true)]
-    private Collection $session;
+    private Collection $sessions;
 
     public function __construct()
     {

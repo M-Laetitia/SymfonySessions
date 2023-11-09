@@ -19,7 +19,7 @@ class Category
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: ModuleFormation::class, orphanRemoval: true)]
-    private Collection $moduleFormation;
+    private Collection $moduleFormations;
 
     public function __construct()
     {

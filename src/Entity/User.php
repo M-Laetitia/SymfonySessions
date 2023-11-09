@@ -45,7 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $session;
 
     #[ORM\ManyToMany(targetEntity: ModuleFormation::class, inversedBy: 'users')]
-    private Collection $moduleFormation;
+    private Collection $moduleFormations;
 
     public function __construct()
     {
