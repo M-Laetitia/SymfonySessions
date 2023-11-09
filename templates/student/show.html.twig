@@ -21,13 +21,53 @@
 
     </p>
 
-    <h3>Sessions en cours</h3>
+    <p>
 
-    {# mettre condition pour vérifier si session en cours #}
+        {% if student.sessions | length > 0 %}
+            {% set currentDate = date('now') %}
+            {% set hasOngoingSession = false %}
+            {% set hasFutureSession = false %}
+            {% set hasFinishedSession = false %}
 
-    <h4>Sessions suivies</h4>
+            {% for session in student.sessions %}
+                {% if session.startDate <= currentDate and currentDate <= session.endDate %}
+                    {% set hasOngoingSession = true %}
+                    <h3>Formation en cours :</h3>
+                    {{ session.formation.name }} du {{ session.startDate|date("d.m.Y") }} au {{ session.endDate|date("d.m.Y") }} <br>
+                {% elseif session.startDate > currentDate %}
+                    {% set hasFutureSession = true %}
+                    <h3>Formations à venir :</h3>
+                    {{ session.formation.name }} du {{ session.startDate|date("d.m.Y") }} au {{ session.endDate|date("d.m.Y") }} <br>
+                {% elseif session.endDate < currentDate %}
+                    {% set hasFinishedSession = true %}
+                    <h3>Formations terminées :</h3>
+                    {{ session.formation.name }} du {{ session.startDate|date("d.m.Y") }} au {{ session.endDate|date("d.m.Y") }} <br>
+                {% endif %}
+            {% endfor %}
 
-    {# mettre condition pour vérifier si précédentes sessions suivies #}
+            {% if not hasOngoingSession %}
+                <h3>Formation en cours :</h3>
+                <p>Pas de formations en cours.</p>
+            {% endif %}
+
+            {% if not hasFutureSession %}
+                <h3>Formations à venir :</h3>
+                <p>Pas de formations à venir.</p>
+            {% endif %}
+
+            {% if not hasFinishedSession %}
+                <h3>Formations terminées :</h3>
+                <p>Pas de formations terminées.</p>
+            {% endif %}
+
+        {% else %}
+            <p>Aucune session.</p>
+        {% endif %}
+
+
+    </p>
+
+
 
 
 {% endblock %}
