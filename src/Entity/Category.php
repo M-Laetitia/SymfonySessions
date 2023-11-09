@@ -18,7 +18,7 @@ class Category
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: moduleFormation::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: ModuleFormation::class, orphanRemoval: true)]
     private Collection $moduleFormation;
 
     public function __construct()
@@ -51,7 +51,7 @@ class Category
         return $this->moduleFormation;
     }
 
-    public function addModuleFormation(moduleFormation $moduleFormation): static
+    public function addModuleFormation(ModuleFormation $moduleFormation): static
     {
         if (!$this->moduleFormation->contains($moduleFormation)) {
             $this->moduleFormation->add($moduleFormation);
@@ -61,7 +61,7 @@ class Category
         return $this;
     }
 
-    public function removeModuleFormation(moduleFormation $moduleFormation): static
+    public function removeModuleFormation(ModuleFormation $moduleFormation): static
     {
         if ($this->moduleFormation->removeElement($moduleFormation)) {
             // set the owning side to null (unless already changed)

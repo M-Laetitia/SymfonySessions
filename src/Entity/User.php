@@ -41,10 +41,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isVerified = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: session::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Session::class, orphanRemoval: true)]
     private Collection $session;
 
-    #[ORM\ManyToMany(targetEntity: moduleFormation::class, inversedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: ModuleFormation::class, inversedBy: 'users')]
     private Collection $moduleFormation;
 
     public function __construct()
@@ -179,7 +179,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->session;
     }
 
-    public function addSession(session $session): static
+    public function addSession(Session $session): static
     {
         if (!$this->session->contains($session)) {
             $this->session->add($session);
@@ -189,7 +189,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeSession(session $session): static
+    public function removeSession(Session $session): static
     {
         if ($this->session->removeElement($session)) {
             // set the owning side to null (unless already changed)
@@ -209,7 +209,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->moduleFormation;
     }
 
-    public function addModuleFormation(moduleFormation $moduleFormation): static
+    public function addModuleFormation(ModuleFormation $moduleFormation): static
     {
         if (!$this->moduleFormation->contains($moduleFormation)) {
             $this->moduleFormation->add($moduleFormation);
@@ -218,7 +218,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeModuleFormation(moduleFormation $moduleFormation): static
+    public function removeModuleFormation(ModuleFormation $moduleFormation): static
     {
         $this->moduleFormation->removeElement($moduleFormation);
 
