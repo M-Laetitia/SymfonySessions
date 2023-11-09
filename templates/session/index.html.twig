@@ -11,7 +11,9 @@
     {% for session in sessions %}
         {# <a href="{{ path('show_student', {'id': student.id }) }}"> #}
             
-            {{sessions.startDate}}
+            <a href="{{ path('show_session', {'id': session.id }) }}"> {{session.formation.name}}</a>
+            du {{session.startDate|date("d.m.Y")}} au 
+            {{session.endDate|date("d.m.Y")}}
 
         
         {# <a  href="{{ path('edit_student', {'id': student.id }) }}">Edit</a>
@@ -22,3 +24,5 @@
     {% endfor %}
 
 {% endblock %}
+
+
