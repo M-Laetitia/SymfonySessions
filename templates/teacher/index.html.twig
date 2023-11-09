@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des formateurs!{% endblock %}
+
+{% block body %}
+
+<h1>Liste des formateurs</h1>
+
+    {% for teacher in teachers %}
+        {{teacher.firstName}} 
+    {% endfor %}
+
+{% endblock %}
