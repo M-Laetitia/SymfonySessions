@@ -4,18 +4,49 @@
 
 {% block body %}
 
-    <h1>Liste stagiaires</h1>
-    <a href="{{ path('new_student') }}" >ajouter un stagiaire</a><br>
+    
 
-    {% for student in students %}
-        {# <a href="{{ path('show_student', {'id': student.id }) }}">{{student}}</a> #}
+    <div class="container usersList">
+        <div class="top">
+            <h1>Liste stagiaires</h1>
+            <a href="{{ path('new_student') }}" ><i class="fa-solid fa-user-plus"></i></a>
+        </div>
 
-        {{student}} <br>
 
-        {# <a  href="{{ path('edit_student', {'id': student.id }) }}">Edit</a> #}
+        <div class="list-person list-student">
 
-        {# <a  href="{{ path('delete_student', {'id': student.id }) }}">Supprimer</a> <br> #}
-    {% endfor %}
+            <div class="top-list">
+                <p>Nom</p>
+                <p>Formation</p>
+                <p>Date de début</p>
+                <p>Date de fin</p>
+                <p>Statut</p>
+
+            </div>
+
+            <div class="content-list">
+                {% for student in students %}
+                    <div>
+                        <p><a href="{{ path('show_student', {'id': student.id }) }}">{{student}}</a></p>
+                        <p>Découverte numérique</p>
+                        <p>11-02-2023</p>
+                        <p>12-04-2023</p>
+                        <p>En formation</p>
+                        
+                        {# <a  href="{{ path('edit_student', {'id': student.id }) }}">Edit</a>
+                        <a  href="{{ path('delete_student', {'id': student.id }) }}">Supprimer</a>  #}
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    
+
+    
 
 
 {% endblock %}
