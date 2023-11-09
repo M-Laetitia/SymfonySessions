@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StudentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,6 +36,14 @@ class Student
 
     #[ORM\Column(length: 100)]
     private ?string $city = null;
+
+    #[ORM\ManyToMany(targetEntity: session::class, inversedBy: 'students')]
+    private Collection $sessions;
+
+    public function __construct()
+    {
+        $this->sessions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +130,30 @@ class Student
     public function setCity(string $city): static
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, session>
+     */
+    public function getSession(): Collection
+    {
+        return $this->session;
+    }
+
+    public function addSession(session $session): static
+    {
+        if (!$this->session->contains($session)) {
+            $this->session->add($session);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(session $session): static
+    {
+        $this->session->removeElement($session);
 
         return $this;
     }
