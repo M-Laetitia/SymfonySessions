@@ -9,21 +9,47 @@
     <h2> {{ user }}</h2>
 
     <p>
-    
         Nom : {{ user}} <br> 
-       
-
+      
         <a href="{{ path('edit_teacher', {'id': user.id }) }}">EDITER </a>
         <a href="{{ path('delete_teacher', {'id': user.id }) }}">SUPPRIMER(ok) </a>
         
-        
-
     </p>
 
-    <p>session en cours:</p>
 
-    <p>session à venir</p>
+    {% if user.sessions | length > 0 %}
+        {% set currentDate = date('now') %}
+        {% set hasOngoingSession = false %}
+        {% set hasFutureSession = false %}
 
+
+        {% for session in user.sessions %}
+            {% if session.startDate <= currentDate and currentDate <= session.endDate %}
+                {% set hasOngoingSession = true %}
+                <h3>Formation en cours :</h3>
+                <a href="{{ path('show_session', {'id': session.id }) }}">{{ session.formation.name }}</a>
+                {{ session.formation.name }} du {{ session.startDate|date("d.m.Y") }} au {{ session.endDate|date("d.m.Y") }} <br>
+            {% elseif session.startDate > currentDate %}
+                {% set hasFutureSession = true %}
+                <h3>Formations à venir :</h3>
+                <a href="{{ path('show_session', {'id': session.id }) }}">{{ session.formation.name }}</a>
+                 du {{ session.startDate|date("d.m.Y") }} au {{ session.endDate|date("d.m.Y") }} <br>
+            {% endif %}
+        {% endfor %}
+
+        {% if not hasOngoingSession %}
+            <h3>Formation en cours :</h3>
+            <p>Pas de formations en cours.</p>
+        {% endif %}
+
+        {% if not hasFutureSession %}
+            <h3>Formations à venir :</h3>
+            <p>Pas de formations à venir.</p>
+        {% endif %}
+
+    {% else %}
+        <p>Aucune session.</p>
+    {% endif %}
 
 
 {% endblock %}
