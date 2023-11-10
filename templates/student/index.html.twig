@@ -27,11 +27,37 @@
             <div class="content-list">
                 {% for student in students %}
                     <div>
-                        <p><a href="{{ path('show_student', {'id': student.id }) }}">{{student}}</a></p>
-                        <p>Découverte numérique</p>
-                        <p>11-02-2023</p>
-                        <p>12-04-2023</p>
-                        <p>En formation</p>
+                        
+                        {# <p>{{student.sessions.formation.name}}</p> #}
+                        
+                        {% for session in student.sessions %}
+                            <p><a href="{{ path('show_student', {'id': student.id }) }}">{{student}}</a></p>
+                            <p><a href="{{ path('show_session', {'id': session.id }) }}">{{session.formation.name}}</a></p>
+
+                          
+
+                            <p>{{session.startDate|date("d.m.Y")}}</p>
+                            <p>{{session.endDate|date("d.m.Y")}}</p>
+                            
+                            
+                                {% set currentDate = date('now') %}
+                                {% if session.startDate <= currentDate and currentDate <= session.endDate %}
+                                   <p>a débuté</p>
+                                   
+                                {% elseif session.startDate > currentDate %}                           
+                                    <p>n'a pas débuté</p>
+                             
+                                {% elseif session.endDate < currentDate %}
+                                    <p>error</p>
+                                {% endif %}
+                            
+
+
+                            
+                        {% endfor %}
+        
+                    
+                     
                         
                         {# <a  href="{{ path('edit_student', {'id': student.id }) }}">Edit</a>
                         <a  href="{{ path('delete_student', {'id': student.id }) }}">Supprimer</a>  #}
