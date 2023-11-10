@@ -4,10 +4,38 @@
 
 {% block body %}
 
-<h1>Liste des formateurs</h1>
 
-    {% for teacher in teachers %}
-        {{teacher.firstName}} 
-    {% endfor %}
+
+<div class="container usersList">
+    <div class="top">
+        <h1>Liste des formateurs</h1>
+    </div>
+
+
+    <div class="list-person list-teacher">
+
+        <div class="top-list">
+            <p>Nom</p>
+            <p>Session en cours</p>
+            <p>Session à venir</p>
+         
+        </div>
+
+        <div class="content-list">
+            {% for teacher in teachers %}
+                <div>
+                    <a href="{{ path('show_teacher', {'id': teacher.id }) }}">{{teacher}}</a>
+                    <p></p>
+                    <p>en cours</p>
+                    <p>à venir</p>
+                    
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</div>
+
 
 {% endblock %}
