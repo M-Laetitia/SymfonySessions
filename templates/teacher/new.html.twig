@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer un formateur{% endblock %}
+
+{% block body %}
+
+    <h1>Editer un formateur</h1>
+
+
+
+    {{ form_start(formAddTeacher) }}
+
+        
+        <div>
+            <div {{ form_row(formAddTeacher.lastName) }}</div>
+            <div {{ form_row(formAddTeacher.firstName) }}</div>
+        </div>
+
+        <div>
+            <div {{ form_row(formAddTeacher.email) }}</div>
+        </div>
+
+
+        
+        
+        {{ form_row(formAddTeacher.Validate) }}
+        
+
+    {{ form_end(formAddTeacher) }}
+
+
+{% endblock %}
