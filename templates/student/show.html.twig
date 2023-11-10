@@ -10,7 +10,6 @@
 
     <p>
     
-        {# Utiliser twig: #}
         Nom : {{ student}} <br> 
         Sexe : {{student.sexe}} <br>
         Mail : {{student.email}} <br>
@@ -18,6 +17,11 @@
         Ville : {{student.city}} <br>
         Date de naissance: {{student.birthday|date("d.m.Y")}} <br>
         Age: {{ student.age}}  ans <br>
+
+        <a href="{{ path('edit_student', {'id': student.id }) }}">EDITER </a>
+        <a href="{{ path('delete_student', {'id': student.id }) }}">SUPPRIMER </a>
+        
+        
 
     </p>
 
