@@ -6,20 +6,21 @@
 
     <h1>Liste sessions</h1>
 
-    {# <a href="{{ path('new_student') }}" >ajouter un stagiaire</a><br> #}
+   
+    <a href="{{ path('new_session') }}" >ajouter une session</a><br>
 
     {% for session in sessions %}
         {# <a href="{{ path('show_student', {'id': student.id }) }}"> #}
             
-            <a href="{{ path('show_session', {'id': session.id }) }}"> {{session.formation.name}}</a>
-            du {{session.startDate|date("d.m.Y")}} au 
-            {{session.endDate|date("d.m.Y")}}
+        <a href="{{ path('show_session', {'id': session.id }) }}"> {{session.formation.name}}</a>
+        du {{session.startDate|date("d.m.Y")}} au 
+        {{session.endDate|date("d.m.Y")}} - {{ session.nbPlacebooked }} / {{session.nbPlaceTotal}} places
 
-        
-        {# <a  href="{{ path('edit_student', {'id': student.id }) }}">Edit</a>
-        <a  href="{{ path('delete_student', {'id': student.id }) }}">Supprimer</a> <br> #}
-        <br>
+        <a href="#">Editer</a>
 
+        <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
+
+        {{ session.students | length }}
         
     {% endfor %}
 
