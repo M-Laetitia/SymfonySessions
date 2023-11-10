@@ -11,6 +11,8 @@
     Nombre d'inscrits : <br>
     Nombre de place restante:  <br>
 
+    Formateur référent: {{session.user}}
+
     <h2>Détail des modules</h2>
 
     {% if session.programmes| length > 0 %}
@@ -24,6 +26,15 @@
 
 
     <h2>Détail des stagiaires inscrits</h2>
+
+    {% if session.students| length > 0 %}
+
+        {% for student in session.students %}
+            <a href="{{ path('show_student', {'id': session.id }) }}">{{student}}</a>
+             <br>
+        {% endfor %}
+        
+    {% endif %}
    
 
 {% endblock %}
