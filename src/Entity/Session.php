@@ -91,6 +91,10 @@ class Session
         return $this;
     }
 
+
+    public function getNbPlacebooked(): ?int {
+        return count($this->students);
+    }
  
 
     /**
