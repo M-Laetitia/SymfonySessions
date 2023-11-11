@@ -44,6 +44,9 @@ class Session
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\Column(length: 120)]
+    private ?string $name = null;
+
     public function __construct()
     {
         $this->programmes = new ArrayCollection();
@@ -178,8 +181,22 @@ class Session
         return $this;
     }
 
+ 
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     public function __toString() {
         
-        return $this->startDate. " " .$this->endDate;
+        return $this->name;
     }
 }
