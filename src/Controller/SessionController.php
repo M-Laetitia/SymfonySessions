@@ -3,13 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Session;
+use App\Entity\ModuleFormation;
+use App\Entity\Programme;
 use App\Form\SessionType;
+use App\Form\ProgrammeType;
 use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 class SessionController extends AbstractController
 {
@@ -69,10 +73,24 @@ class SessionController extends AbstractController
 
 
     #[Route('/session/{id}', name: 'show_session')]
-    public function show(Session $session): Response {
+    public function show(Session $session,  Request $request, EntityManagerInterface $entityManager): Response {
+        
+        $programme = new Programme();    
+        $form = $this->createForm(ProgrammeType::class, $programme);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $programme = $form->getData();
+            $entityManager->persist($programme);
+            $entityManager->flush();
+            return$this->redirectToRoute('app_session');
+        }
 
         return $this->render('session/show.html.twig', [
-            'session' => $session
+            'session' => $session,
+            'formAddProgramme' => $form,
+            'edit' => $programme->getId()
         ]);
     }
 
