@@ -24,14 +24,15 @@ CREATE TABLE IF NOT EXISTS `category` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table symfonysessions.category : ~4 rows (environ)
+-- Listage des données de la table symfonysessions.category : ~5 rows (environ)
 REPLACE INTO `category` (`id`, `name`) VALUES
-	(1, 'Informatique'),
-	(2, 'Bureautique'),
-	(3, 'Vente'),
-	(4, 'Comptabilité');
+	(1, 'Advanced Specializations'),
+	(2, 'Back-end Development'),
+	(3, 'UI/UX Design'),
+	(4, 'Web Design'),
+	(5, 'Web Development Fundamentals');
 
 -- Listage de la structure de table symfonysessions. doctrine_migration_versions
 CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
@@ -50,13 +51,15 @@ CREATE TABLE IF NOT EXISTS `formation` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(75) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table symfonysessions.formation : ~3 rows (environ)
+-- Listage des données de la table symfonysessions.formation : ~5 rows (environ)
 REPLACE INTO `formation` (`id`, `name`) VALUES
-	(1, 'Formation en développement Web'),
-	(2, 'Découverte Numérique'),
-	(3, 'Bureautique et comptabilité');
+	(1, 'Front-End Development Essentials'),
+	(2, 'Back-End Development Basics'),
+	(3, 'Mastering Modern Web Development'),
+	(4, 'Fundamentals of Web Development'),
+	(5, 'Full-Stack Development Fundamentals');
 
 -- Listage de la structure de table symfonysessions. messenger_messages
 CREATE TABLE IF NOT EXISTS `messenger_messages` (
@@ -86,16 +89,23 @@ CREATE TABLE IF NOT EXISTS `module_formation` (
   PRIMARY KEY (`id`),
   KEY `IDX_1A213E7712469DE2` (`category_id`),
   CONSTRAINT `FK_1A213E7712469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table symfonysessions.module_formation : ~6 rows (environ)
+-- Listage des données de la table symfonysessions.module_formation : ~13 rows (environ)
 REPLACE INTO `module_formation` (`id`, `category_id`, `name`) VALUES
 	(1, 1, 'HTML'),
 	(2, 1, 'CCS'),
 	(3, 2, 'Word'),
 	(4, 2, 'PowerPoint'),
 	(5, 4, 'Communication'),
-	(6, 4, 'Excel');
+	(6, 4, 'Excel'),
+	(7, 1, 'JavaScript'),
+	(8, 1, 'React Basics and Components'),
+	(9, 1, 'Advanced React Patterns'),
+	(10, 1, 'Vue Components and Routing'),
+	(11, 1, 'Angular Essentials'),
+	(12, 1, 'Webpack, Babel, and NPM'),
+	(13, 1, 'jQuery Fundamentals');
 
 -- Listage de la structure de table symfonysessions. programme
 CREATE TABLE IF NOT EXISTS `programme` (
@@ -108,13 +118,24 @@ CREATE TABLE IF NOT EXISTS `programme` (
   KEY `IDX_3DDCB9FF3A53B0DC` (`module_formation_id`),
   CONSTRAINT `FK_3DDCB9FF3A53B0DC` FOREIGN KEY (`module_formation_id`) REFERENCES `module_formation` (`id`),
   CONSTRAINT `FK_3DDCB9FF613FECDF` FOREIGN KEY (`session_id`) REFERENCES `session` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table symfonysessions.programme : ~3 rows (environ)
+-- Listage des données de la table symfonysessions.programme : ~14 rows (environ)
 REPLACE INTO `programme` (`id`, `session_id`, `module_formation_id`, `duration`) VALUES
 	(1, 1, 2, 3),
 	(2, 1, 3, 2),
-	(3, 1, 1, 1);
+	(3, 1, 1, 1),
+	(4, 2, 2, 2),
+	(5, 2, 4, 4),
+	(9, 2, 1, 2),
+	(10, 2, 2, 4),
+	(11, 5, 7, 5),
+	(12, 5, 8, 5),
+	(13, 5, 9, 3),
+	(14, 5, 10, 4),
+	(15, 5, 11, 5),
+	(16, 5, 12, 7),
+	(17, 5, 13, 4);
 
 -- Listage de la structure de table symfonysessions. session
 CREATE TABLE IF NOT EXISTS `session` (
@@ -130,14 +151,15 @@ CREATE TABLE IF NOT EXISTS `session` (
   KEY `IDX_D044D5D4A76ED395` (`user_id`),
   CONSTRAINT `FK_D044D5D45200282E` FOREIGN KEY (`formation_id`) REFERENCES `formation` (`id`),
   CONSTRAINT `FK_D044D5D4A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table symfonysessions.session : ~4 rows (environ)
+-- Listage des données de la table symfonysessions.session : ~5 rows (environ)
 REPLACE INTO `session` (`id`, `formation_id`, `user_id`, `start_date`, `end_date`, `nb_place_total`, `name`) VALUES
 	(1, 2, 3, '2024-01-09 14:46:46', '2024-02-01 14:46:53', 12, 'Découverte numérique (1)'),
-	(2, 3, 1, '2023-11-09 00:00:00', '2023-12-22 00:00:00', 12, 'Bureautique et comptabilité (1)'),
+	(2, 3, 2, '2024-11-09 00:00:00', '2024-12-22 00:00:00', 12, 'Bureautique et comptabilité (1)'),
 	(3, 1, 3, '2023-03-12 18:58:47', '2023-04-19 18:59:00', 8, 'Formation en développement web (1)'),
-	(4, 2, 1, '2018-01-01 00:00:00', '2019-01-01 00:00:00', 3, 'découverte num(2)');
+	(4, 2, 1, '2018-01-01 00:00:00', '2019-01-01 00:00:00', 3, 'découverte num(2)'),
+	(5, 3, 3, '2023-11-01 19:11:28', '2024-03-21 19:11:31', 8, 'Mastering Modern Web Development (1)');
 
 -- Listage de la structure de table symfonysessions. student
 CREATE TABLE IF NOT EXISTS `student` (
@@ -177,20 +199,17 @@ CREATE TABLE IF NOT EXISTS `student_session` (
   CONSTRAINT `FK_3D72602CCB944F1A` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table symfonysessions.student_session : ~12 rows (environ)
+-- Listage des données de la table symfonysessions.student_session : ~9 rows (environ)
 REPLACE INTO `student_session` (`student_id`, `session_id`) VALUES
-	(1, 1),
+	(1, 2),
 	(2, 1),
 	(3, 1),
 	(4, 2),
-	(5, 3),
-	(6, 3),
-	(7, 1),
-	(7, 2),
+	(5, 1),
+	(6, 1),
 	(8, 2),
 	(9, 2),
-	(10, 2),
-	(10, 3);
+	(10, 5);
 
 -- Listage de la structure de table symfonysessions. user
 CREATE TABLE IF NOT EXISTS `user` (
