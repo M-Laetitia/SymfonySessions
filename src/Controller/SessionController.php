@@ -2,13 +2,15 @@
  namespace App\Controller;
  
 use App\Entity\Session;
-use App\Entity\ModuleFormation;
-use App\Entity\Programme;
-use App\Form\StudentType;
 use App\Entity\Student;
+use App\Entity\Programme;
 use App\Form\SessionType;
+use App\Form\StudentType;
 use App\Form\ProgrammeType;
+use App\Entity\ModuleFormation;
+use App\Form\StudentSessionType;
 use App\Repository\SessionRepository;
+use App\Repository\StudentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -95,21 +97,51 @@ class SessionController extends AbstractController
         }
  
         //^ Form to add Student
-        $student = new Student();
+
         $programme->setSession($session);
-        $formStudent = $this->createForm(StudentType::class, $student);
-        $formStudent->handleRequest($request);
+
+
+        
+        $formStudentSession = $this->createForm(StudentSessionType::class);
+        $formStudentSession->handleRequest($request);
  
-        if ($formStudent->isSubmitted() && $formStudent->isValid()) {
- 
+        if ($formStudentSession->isSubmitted() && $formStudentSession->isValid()) {
+            $students = $formStudentSession->getData();
+
+            // Add students to the session
+            // get the data from the form. The form handles students, $students should now contain the selected students.
+            foreach ($students as $student) {
+                $session->addStudent($student);
+            }
+
+            $entityManager->persist($session);
+            $entityManager->flush();
+            return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
         }
  
         return $this->render('session/show.html.twig', [
             'session' => $session,
             'formAddProgramme' => $form,
-            'formAddStudent' => $formStudent->createView(),
+            'formAddStudent' => $formStudentSession->createView(),
+            'formAddStudentSession' => $formStudentSession->createView(),
             'edit' => $programme->getId()
         ]);
     }
- 
+
+
+    #[Route('/session/{id}/delete/{studentId}', name: 'remove_student_from_session')]
+    public function removeStudent($id, $studentId, EntityManagerInterface $entityManager): Response
+    {
+        $session = $entityManager->find(Session::class, $id);
+        $student = $entityManager->find(Student::class, $studentId);
+    
+        if ($session && $student) {
+            $session->removeStudent($student);
+            $entityManager->flush();
+        }
+    
+
+    return $this->redirectToRoute('show_session', ['id' => $id]);
+    }
+
 }
