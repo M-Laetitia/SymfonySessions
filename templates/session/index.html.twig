@@ -1,72 +1,144 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste sessions{% endblock %}
+{% block title %}Training sessions list{% endblock %}
 
 {% block body %}
 
-    <h1>Liste sessions</h1>
+    <div class="main-content-page session-index-page">
 
-    {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('new_session') }}" >ajouter une session</a><br>
-    {% endif %}
+        <div id="title-add">
+            <h1>Training Sessions</h1>
 
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('new_session') }}" ><i class="fa-regular fa-calendar-plus"></i></a>
+            {% endif %}
 
-    <hr>
+        </div>
         
-        {% for session in sessions %}
-            {% set currentDate = date('now') %}
+        <div id="top">
+            <p>Session's Title</p>
+            <p>Starting Date</p>
+            <p>Ending Date</p>
+            <p>Places</p>
+            <p>Remaining Places</p>
+            <p>Detail</p>
+        </div>
 
-            {% if session.startDate <= currentDate and currentDate <= session.endDate %}
-                
-                <h3>Formation en cours :</h3>
-                <a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a>
-                du {{session.startDate|date("d.m.Y")}} au 
-                {{session.endDate|date("d.m.Y")}} - {{ session.nbPlacebooked }} / {{session.nbPlaceTotal}} places
+        <div class="session-top" id="current-session-top">
 
-                {# {{ session.students | length }} #}
+            <h2>Current Sessions</h2>
+            <i class="fa-solid fa-chevron-up"></i>
+        </div>
 
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('edit_session', {'id': session.id }) }}">Editer</a>
-                    <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
-                {% endif %}
-
-            {% endif %}
-        {% endfor %}
-
-        {% for session in sessions %}
-            {% set currentDate = date('now') %}
-            {% if session.startDate > currentDate %}
-                
-                <h3>Formations à venir :</h3>
-                <a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a>
-                du {{session.startDate|date("d.m.Y")}} au 
-                {{session.endDate|date("d.m.Y")}} - {{ session.nbPlacebooked }} / {{session.nbPlaceTotal}} places
+        <div class="session-list" id="current-session-list">
+            {% for session in sessions %}
+                {% set currentDate = date('now') %}
+    
+                {% if session.startDate <= currentDate and currentDate <= session.endDate %}
+                    <div>
+                        <h3><a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a></h3>
+                        <p>{{session.startDate|date("d.m.Y")}}</p>
+                        <p>{{session.endDate|date("d.m.Y")}}</p>
+                        <p>{{ session.nbPlacebooked }} / {{session.nbPlaceTotal}}</p>
+                        <p>{{ session.nbPlaceRemaining }}</p>
+                        <p><a href="{{ path('show_session', {'id': session.id }) }}"> <i class="ri-git-repository-commits-fill"></i></a></p>
+                        
+                        {# {{ session.students | length }} #}
         
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('edit_session', {'id': session.id }) }}">Editer</a>
-                    <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
+                        {# {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('edit_session', {'id': session.id }) }}">Editer</a>
+                            <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
+                        {% endif %} #}
+                    </div>
                 {% endif %}
-                
-            {% endif %}
-        {% endfor %}
+            {% endfor %}                    
+        </div>
 
-        {% for session in sessions %}
-            {% set currentDate = date('now') %}
-            {% if session.endDate < currentDate %}
-                
-                <h3>Formations terminées :</h3>
-                <a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a>
-                du {{session.startDate|date("d.m.Y")}} au 
-                {{session.endDate|date("d.m.Y")}} - {{ session.nbPlacebooked }} / {{session.nbPlaceTotal}} places
+        <div class="session-top" id="upcoming-session-top">
+            <h2>Upcoming Sessions</h2>
+            <i class="fa-solid fa-chevron-up"></i>
+        </div>
 
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('edit_session', {'id': session.id }) }}">Editer</a>
-                    <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
+        <div class="session-list" id="upcoming-session-list">
+            {% for session in sessions %}
+                {% set currentDate = date('now') %}
+                {% if session.startDate > currentDate %}
+
+                <div>
+                    <h3> <a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a></h3>
+                    <p>{{session.startDate|date("d.m.Y")}}</p>
+                    <p>{{session.endDate|date("d.m.Y")}}</p>
+                    <p>{{ session.nbPlacebooked }} / {{session.nbPlaceTotal}} </p>
+                    <p>{{ session.nbPlaceRemaining }}</p>
+                    <p><a href="{{ path('show_session', {'id': session.id }) }}"> <i class="ri-git-repository-commits-fill"></i></a></p>
+
+                </div>
+        
+                    {# {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('edit_session', {'id': session.id }) }}">Editer</a>
+                        <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
+                    {% endif %} #}
+                    
                 {% endif %}
+            {% endfor %}
+        </div>
 
-            {% endif %}
-        {% endfor %}
+        <div id="show-past-sessions-btn">
+            <p>Show past sessions</p>
+        </div>
+      
+        <div id="past-sessions-container" style="display:none">
 
+            <div class="session-top" id="past-session-top">
+                <h2>Past Sessions</h2>
+                <i class="fa-solid fa-chevron-up"></i>
+            </div>
+
+            <div class="session-list" id="past-session-list">
+
+                {% for session in sessions %}
+                    {% set currentDate = date('now') %}
+                    {% if session.endDate < currentDate %}
+
+                    <div>
+                        <h3> <a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a></h3>
+                        <p>{{session.startDate|date("d.m.Y")}}</p>
+                        <p>{{session.startDate|date("d.m.Y")}}</p>
+                        <p>{{ session.nbPlacebooked }} / {{session.nbPlaceTotal}} </p>
+                        <p></p>
+                        <p></p>
+    
+                    </div>
+        
+                        {# {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('edit_session', {'id': session.id }) }}">Editer</a>
+                            <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
+                        {% endif %} #}
+        
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+
+        </div>
+        
+    </div>
+
+    <script>
+     //^ Show/hide past sessions (list)---------------------
+
+        $(document).ready(function () {
+            $('#show-past-sessions-btn').click(function () {
+                console.log("ok")
+                    $('#past-sessions-container').toggle();
+                },
+                
+            );
+
+        });
+    </script>
+
+    
 
 {% endblock %}
 
