@@ -43,6 +43,7 @@
 
         {% for student in session.students %}
             <a href="{{ path('show_student', {'id': session.id }) }}">{{student}}</a>
+            <a href="{{ path('remove_student_from_session', {'id': session.id, 'studentId': student.id}) }}">Remove</a>
              <br>
              {% endfor %}
         {% else %}
@@ -63,14 +64,11 @@
 
     <h3>Ajouter stagaire</h3>
 
-    {# {{ form_start(formAddStudent) }}
+    {{ form_start(formAddStudentSession) }}
+        {{ form_row(formAddStudentSession.students) }}
+        {{ form_row(formAddStudentSession.Validate) }}
 
-            {{ form_row(formAddProgramme.duration) }}
-            {{ form_row(formAddProgramme.module) }}
-            
-            {{ form_row(formAddProgramme.Validate) }}
-
-   {{ form_end(formAddStudent) }} #}
+   {{ form_end(formAddStudentSession) }}
 
 
 
