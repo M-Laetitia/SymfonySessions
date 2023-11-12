@@ -28,7 +28,9 @@
     {% if session.programmes| length > 0 %}
 
             {% for programme in session.programmes %}
-                {{programme.ModuleFormation.name}} ( {{programme.duration}} jours) <br>
+                {{programme.ModuleFormation.name}} ( {{programme.duration}} jours) 
+                <a href="{{ path('delete_programme', {'id': programme.id}) }}">delete</a>
+                <br>
             {% endfor %}
         {% else %}
             <p>Aucun module .</p>
@@ -53,8 +55,7 @@
         {{ form_start(formAddProgramme) }}
 
             {{ form_row(formAddProgramme.duration) }}
-            {# {{ form_row(formAddProgramme.moduleFormation.name) }} #}
-            
+            {{ form_row(formAddProgramme.moduleFormation) }}
             {{ form_row(formAddProgramme.Validate) }}
 
         {{ form_end(formAddProgramme) }}
@@ -62,11 +63,14 @@
 
     <h3>Ajouter stagaire</h3>
 
-        {{ form_start(formAddStudent) }}
+    {# {{ form_start(formAddStudent) }}
 
+            {{ form_row(formAddProgramme.duration) }}
+            {{ form_row(formAddProgramme.module) }}
+            
+            {{ form_row(formAddProgramme.Validate) }}
 
-
-        {{ form_end(formAddStudent) }}
+   {{ form_end(formAddStudent) }} #}
 
 
 
