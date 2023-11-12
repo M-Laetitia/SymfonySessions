@@ -1,78 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste stagiaires{% endblock %}
+{% block title %}Students' list{% endblock %}
 
 {% block body %}
 
-    
+    <div class="main-content-page student-index-page">
 
-    <div class="container usersList">
-        <div class="top">
-            <h1>Liste stagiaires</h1>
-            <a href="{{ path('new_student') }}" ><i class="fa-solid fa-user-plus"></i></a>
+        <div id="title-add">
+            <h1>Students List</h1>
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('new_student') }}" ><i class="fa-solid fa-user-plus"></i></a>
+            {% endif %}
+
         </div>
-
-
-        <div class="list-person list-student">
-
-            <div class="top-list">
-                <p>Nom</p>
-                <p>Formation</p>
-                <p>Date de début</p>
-                <p>Date de fin</p>
-                <p>Statut</p>
-
-            </div>
-
-            <div class="content-list">
-                {% for student in students %}
-                    <div>
-                        
-                        {# <p>{{student.sessions.formation.name}}</p> #}
-                        
-                        {% for session in student.sessions %}
-                            <p><a href="{{ path('show_student', {'id': student.id }) }}">{{student}}</a></p>
-                            <p><a href="{{ path('show_session', {'id': session.id }) }}">{{session.formation.name}}</a></p>
-
-                          
-
-                            <p>{{session.startDate|date("d.m.Y")}}</p>
-                            <p>{{session.endDate|date("d.m.Y")}}</p>
-                            
-                            
-                                {% set currentDate = date('now') %}
-                                {% if session.startDate <= currentDate and currentDate <= session.endDate %}
-                                   <p>a débuté</p>
-                                   
-                                {% elseif session.startDate > currentDate %}                           
-                                    <p>n'a pas débuté</p>
-                             
-                                {% elseif session.endDate < currentDate %}
-                                    <p>error</p>
-                                {% endif %}
-                            
-
-
-                            
-                        {% endfor %}
         
-                    
-                     
+        <div id="top">
+            
+            <p>Name</p>
+            <p>Training Session</p>
+            <p>Starting Date</p>
+            <p>Ending Date</p>
+            <p>Status</p>
+            
+        </div>
+   
+
+        <div class="session-list" id="student-list"> 
+        
+                {% for student in students %}
+                    <div class="list-ind-student">
                         
+                    {# <p>{{student.sessions.formation.name}}</p> #}
+                    
+                    {% for session in student.sessions %}
+                    {% set currentDate = date('now') %}
+                        <p><a href="{{ path('show_student', {'id': student.id }) }}">{{student}}</a></p>
+                        <p><a href="{{ path('show_session', {'id': session.id }) }}">{{session.formation.name}}</a></p>
+
+
+                        <p>{{session.startDate|date("d.m.Y")}}</p>
+                        <p>{{session.endDate|date("d.m.Y")}}</p>
+                        
+                        
+                            {% set currentDate = date('now') %}
+                            {% if session.startDate <= currentDate and currentDate <= session.endDate %}
+                                <p class="status-btn started">started</p>
+                                
+                            {% elseif session.startDate > currentDate %}                           
+                                <p class="status-btn not-started">not started</p>
+                            
+                            {% elseif session.endDate < currentDate %}
+                                <p>error</p>
+                            {% endif %}
+                        
+                    {% endfor %}
+    
                         {# <a  href="{{ path('edit_student', {'id': student.id }) }}">Edit</a>
                         <a  href="{{ path('delete_student', {'id': student.id }) }}">Supprimer</a>  #}
                     </div>
+                    <div class="line"></div>
                 {% endfor %}
-            </div>
+            
 
         </div>
 
     </div>
 
-
-    
-
-    
+  
 
 
-{% endblock %}
+    </div>
+
+     {% endblock %}
