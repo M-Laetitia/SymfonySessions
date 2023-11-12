@@ -2,63 +2,88 @@
 /*~ LIST STUDENTS                      */
 /*~ ---------------------------------- */
 
-.usersList .top {
-    background-color:#f5e9eb;
-    border-radius: 0.6rem;
-    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px; */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 3rem;
-    
+.student-index-page #title-add h1{
+    color: var(--highlight--04);
 }
 
-.usersList .top h1 {
-    font-size: var(--medium-font-size);
-    color: #f58c93;  
+
+.student-index-page #title-add .fa-user-plus {
+    color: var(--highlight--04);
+    font-size: var(--interm-font-size) ;
 }
 
-.usersList .top i {
-    color: #9fa3e0;
-}
-
-.list-person {
-    /* background-color: red; */
-    width: 100%;
-    margin-top: 2rem;
-    
-}
-
-.list-person .top-list {
-    background-color: #ffffff;
-    border-radius: 0.6rem;
-    height: 3rem;
+.student-index-page #top {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    align-items: center;
-    justify-items: center;
-    margin-bottom: 1.5rem;
-    font-weight: var(--font-medium);
+    grid-template-columns: 20% 35% 20% 15% 10%;
+    justify-items: start;
+    margin-top: 3rem;
+    background: var(--gradient-color-01);
+    color: var(--light-color);
+    padding: 1rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    margin-bottom: 2rem;
 }
 
-.list-person .content-list{
-    border-radius: 0.6rem;
+#student-list {
+    border-bottom: 3px solid var(--highlight--04);
+    border-radius: 0 0 1rem 1rem;
     overflow: hidden;
+    margin-bottom: 3rem;
 }
-
-
-.list-person .content-list div {
-    background-color: #ffffff;
+#student-list .list-ind-student {
+    background-color: white;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    align-items: center;
+    grid-template-columns: 20% 35% 20% 15% 10%;
     justify-items: center;
-    border-bottom: 1px solid #c7c9e9;
-    padding: 1.3rem;
+    justify-items: start;
+    padding: 1.5rem;
+
 }
 
-.list-person .content-list div p:nth-child(1) a {
-    color:#5858ba;
-    font-weight: var(--font-medium);
+
+#student-list .line {
+    background: var(--gradient-color-01);
+   
+    width: 100%;
+    height: 1px;
+    padding: 0;
+    margin: 0;
 }
+
+
+.status-btn {
+    padding: 0.3rem;
+    width: 6rem;
+    text-align: center;
+    border-radius: 0.6rem;
+    color: white;
+}
+
+.started {
+    background: var(--gradient-color-01);
+}
+
+.not-started {
+    border: 1px solid var(--highlight--04);
+    color: var(--highlight--04);
+}
+
+
+#student-list p:nth-child(1) a{
+    font-weight: 600;
+    color: var(--black-color);
+    /* font-size: var(--normal-font-size); */
+}
+
+#student-list p:nth-child(2) a{
+    font-weight: 600;
+    color: var(--highlight--04);
+}
+
+
+
+
+
+
 
