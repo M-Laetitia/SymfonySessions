@@ -17,20 +17,20 @@
 
     {{ form_start(formAddSession) }}
 
-        <div>
-            {# <div {{ form_row(formAddSession.formation.name) }}</div> #}
-            {# <div {{ form_row(formAddStudent.firstName) }}</div> #}
-        </div>
-
-        <div>
-            {# <div {{ form_row(formAddSession.nbPlaceTotal) }}</div> #}
-        </div>
-
         
+
+        <div>{{ form_row(formAddSession.formation) }}</div>
+        <div {{ form_row(formAddSession.name) }}</div>
+        <div {{ form_row(formAddSession.nbPlaceTotal) }}</div>
+        <div {{ form_row(formAddSession.startDate) }}</div>
+        <div {{ form_row(formAddSession.endDate) }}</div></div>
+        <div {{ form_row(formAddSession.user) }}</div>
+
+    
         {{ form_row(formAddSession.Validate) }}
-        
 
     {{ form_end(formAddSession) }}
 
 
 {% endblock %}
+
