@@ -1,11 +1,11 @@
 <?php
-
+ 
 namespace App\Repository;
-
-use App\Entity\ModuleFormationFormation;
+ 
+use App\Entity\ModuleFormation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+ 
 /**
  * @extends ServiceEntityRepository<ModuleFormation>
  *
@@ -20,8 +20,8 @@ class ModuleFormationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ModuleFormation::class);
     }
-
-//    /**
+ 
+    //    /**
 //     * @return ModuleFormation[] Returns an array of ModuleFormation objects
 //     */
 //    public function findByExampleField($value): array
@@ -35,8 +35,8 @@ class ModuleFormationRepository extends ServiceEntityRepository
 //            ->getResult()
 //        ;
 //    }
-
-//    public function findOneBySomeField($value): ?ModuleFormation
+ 
+    //    public function findOneBySomeField($value): ?ModuleFormation
 //    {
 //        return $this->createQueryBuilder('f')
 //            ->andWhere('f.exampleField = :val')
