@@ -26,19 +26,8 @@ class TeacherController extends AbstractController
     {
         // Utilisation de createQueryBuilder
         // https://www.doctrine-project.org/projects/doctrine-orm/en/2.16/reference/query-builder.html
-        $teachers = $userRepository->createQueryBuilder('u')
-            ->where("u.roles LIKE :role")
-            ->setParameter('role', '%"ROLE_TEACHER"%')
+        $teachers = $userRepository->findTeachers();
 
-            // ->where("u.roles LIKE :role_admin OR u.roles LIKE :role_user")
-            // ->setParameters([
-            //     'role_admin' => '%"ROLE_ADMIN"%',
-            //     'role_user' => '%"ROLE_USER"%',
-            // ])
-
-            ->orderBy('u.lastName', 'ASC')
-            ->getQuery()
-            ->getResult();
 
         return $this->render('teacher/index.html.twig', [
             'controller_name' => 'TeacherController',
