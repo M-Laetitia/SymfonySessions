@@ -6,23 +6,67 @@
 
     <h1>Liste sessions</h1>
 
-   
-    <a href="{{ path('new_session') }}" >ajouter une session</a><br>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('new_session') }}" >ajouter une session</a><br>
+    {% endif %}
 
-    {% for session in sessions %}
-        {# <a href="{{ path('show_student', {'id': student.id }) }}"> #}
-            
-        <a href="{{ path('show_session', {'id': session.id }) }}"> {{session.formation.name}}</a>
-        du {{session.startDate|date("d.m.Y")}} au 
-        {{session.endDate|date("d.m.Y")}} - {{ session.nbPlacebooked }} / {{session.nbPlaceTotal}} places
 
-        <a href="#">Editer</a>
-
-        <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
-
-        {{ session.students | length }}
+    <hr>
         
-    {% endfor %}
+        {% for session in sessions %}
+            {% set currentDate = date('now') %}
+
+            {% if session.startDate <= currentDate and currentDate <= session.endDate %}
+                
+                <h3>Formation en cours :</h3>
+                <a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a>
+                du {{session.startDate|date("d.m.Y")}} au 
+                {{session.endDate|date("d.m.Y")}} - {{ session.nbPlacebooked }} / {{session.nbPlaceTotal}} places
+
+                {# {{ session.students | length }} #}
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('edit_session', {'id': session.id }) }}">Editer</a>
+                    <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
+                {% endif %}
+
+            {% endif %}
+        {% endfor %}
+
+        {% for session in sessions %}
+            {% set currentDate = date('now') %}
+            {% if session.startDate > currentDate %}
+                
+                <h3>Formations à venir :</h3>
+                <a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a>
+                du {{session.startDate|date("d.m.Y")}} au 
+                {{session.endDate|date("d.m.Y")}} - {{ session.nbPlacebooked }} / {{session.nbPlaceTotal}} places
+        
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('edit_session', {'id': session.id }) }}">Editer</a>
+                    <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
+                {% endif %}
+                
+            {% endif %}
+        {% endfor %}
+
+        {% for session in sessions %}
+            {% set currentDate = date('now') %}
+            {% if session.endDate < currentDate %}
+                
+                <h3>Formations terminées :</h3>
+                <a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a>
+                du {{session.startDate|date("d.m.Y")}} au 
+                {{session.endDate|date("d.m.Y")}} - {{ session.nbPlacebooked }} / {{session.nbPlaceTotal}} places
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('edit_session', {'id': session.id }) }}">Editer</a>
+                    <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
+                {% endif %}
+
+            {% endif %}
+        {% endfor %}
+
 
 {% endblock %}
 
