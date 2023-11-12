@@ -1,4 +1,3 @@
-
 -- --------------------------------------------------------
 -- Hôte:                         127.0.0.1
 -- Version du serveur:           8.0.30 - MySQL Community Server - GPL
@@ -125,18 +124,20 @@ CREATE TABLE IF NOT EXISTS `session` (
   `start_date` datetime NOT NULL,
   `end_date` datetime NOT NULL,
   `nb_place_total` int NOT NULL,
+  `name` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_D044D5D45200282E` (`formation_id`),
   KEY `IDX_D044D5D4A76ED395` (`user_id`),
   CONSTRAINT `FK_D044D5D45200282E` FOREIGN KEY (`formation_id`) REFERENCES `formation` (`id`),
   CONSTRAINT `FK_D044D5D4A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table symfonysessions.session : ~3 rows (environ)
-REPLACE INTO `session` (`id`, `formation_id`, `user_id`, `start_date`, `end_date`, `nb_place_total`) VALUES
-	(1, 2, 3, '2024-01-09 14:46:46', '2024-02-01 14:46:53', 12),
-	(2, 3, 1, '2023-11-09 18:58:30', '2023-12-22 18:58:34', 10),
-	(3, 1, 3, '2023-03-12 18:58:47', '2023-04-19 18:59:00', 8);
+-- Listage des données de la table symfonysessions.session : ~4 rows (environ)
+REPLACE INTO `session` (`id`, `formation_id`, `user_id`, `start_date`, `end_date`, `nb_place_total`, `name`) VALUES
+	(1, 2, 3, '2024-01-09 14:46:46', '2024-02-01 14:46:53', 12, 'Découverte numérique (1)'),
+	(2, 3, 1, '2023-11-09 00:00:00', '2023-12-22 00:00:00', 12, 'Bureautique et comptabilité (1)'),
+	(3, 1, 3, '2023-03-12 18:58:47', '2023-04-19 18:59:00', 8, 'Formation en développement web (1)'),
+	(4, 2, 1, '2018-01-01 00:00:00', '2019-01-01 00:00:00', 3, 'découverte num(2)');
 
 -- Listage de la structure de table symfonysessions. student
 CREATE TABLE IF NOT EXISTS `student` (
@@ -149,9 +150,9 @@ CREATE TABLE IF NOT EXISTS `student` (
   `phone_number` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `city` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table symfonysessions.student : ~10 rows (environ)
+-- Listage des données de la table symfonysessions.student : ~11 rows (environ)
 REPLACE INTO `student` (`id`, `last_name`, `first_name`, `sexe`, `birthday`, `email`, `phone_number`, `city`) VALUES
 	(1, 'Dupont', 'Jean', 'Male', '1990-11-09', 'jean.dupont@email.com', '0123456789', 'Strasbourg'),
 	(2, 'Martin', 'Marie', 'Female', '1995-10-15', 'marie.martin@email.com', '9876543210', 'Haguenau'),
@@ -162,7 +163,8 @@ REPLACE INTO `student` (`id`, `last_name`, `first_name`, `sexe`, `birthday`, `em
 	(7, 'Duboit', 'Nicolas', 'Male', '2018-09-15', 'nicolas.dubois@email.com', '6789012345', 'Strasbourg'),
 	(8, 'Fischer', 'Amandine', 'Female', '1992-05-28', 'amandine.fischer@email.com', '8901234567', 'Geispolsheim'),
 	(9, 'Roux', 'Vincent', 'Male', '1985-12-03', 'vincent.roux@email.com', '4321098765', 'Molsheim'),
-	(10, 'Lancier', 'Clémentine', 'Female', '2018-04-03', 'clem.lancier@email.com', '0641471298', 'Strasbourg');
+	(10, 'Lancier', 'Clémentine', 'Female', '2018-04-03', 'clem.lancier@email.com', '0641471298', 'Strasbourg'),
+	(12, 'test', 'test', 'Female', '2018-01-01', 'test05@email.com', '3333333', 'Strasbourg');
 
 -- Listage de la structure de table symfonysessions. student_session
 CREATE TABLE IF NOT EXISTS `student_session` (
