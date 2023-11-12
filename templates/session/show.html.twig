@@ -4,14 +4,24 @@
 
 {% block body %}
 
-    <h1>Détail session: {{ session.formation.name}}</h1>
+    <h1>Détail session: {{ session}}</h1>
 
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('edit_session', {'id': session.id }) }}">Editer</a>
+        <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
+    {% endif %}
+
+    Formation : {{ session.formation}}<br>
     Dates: du {{session.startDate|date("d.m.Y")}} au {{session.endDate|date("d.m.Y")}} <br>
     Nombre de place total : {{ session.nbPlaceTotal}} <br>
-    Nombre d'inscrits : <br>
-    Nombre de place restante:  <br>
+    Nombre d'inscrits : {{ session.nbPlacebooked }}<br>
+    Nombre de place restante: {{ session.nbPlaceRemaining }}  <br>
 
-    Formateur référent: {{session.user}}
+    
+    Formateur référent: 
+    <a href="{{ path('show_teacher', {'id': session.user.id}) }}">{{session.user}}</a>
+
+
 
     <h2>Détail des modules</h2>
 
@@ -32,9 +42,32 @@
         {% for student in session.students %}
             <a href="{{ path('show_student', {'id': session.id }) }}">{{student}}</a>
              <br>
-        {% endfor %}
-        
+             {% endfor %}
+        {% else %}
+            <p>Aucun stagiaires .</p>
     {% endif %}
-   
+
+
+    <h3>Ajouter module</h3>
+
+        {{ form_start(formAddProgramme) }}
+
+            {{ form_row(formAddProgramme.duration) }}
+            {# {{ form_row(formAddProgramme.moduleFormation.name) }} #}
+            
+            {{ form_row(formAddProgramme.Validate) }}
+
+        {{ form_end(formAddProgramme) }}
+
+
+    <h3>Ajouter stagaire</h3>
+
+        {{ form_start(formAddStudent) }}
+
+
+
+        {{ form_end(formAddStudent) }}
+
+
 
 {% endblock %}
