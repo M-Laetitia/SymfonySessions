@@ -28,11 +28,12 @@ class ProgrammeType extends AbstractType
             'attr' => ['min' => 0],
         ])
 
-        // ->add('module', EntityType::class, [
-        //     'class' => ModuleFormation::class,
-        //     'choice_label' => 'name', 
-        //     'placeholder' => 'Choose a module', // Optional, adds an empty option at the beginning
-        // ])
+
+        ->add('moduleFormation', EntityType::class, [
+            'class' => ModuleFormation::class,
+            'choice_label' => 'name', 
+            'placeholder' => 'Choose a module', // Optional, adds an empty option at the beginning
+        ])
 
 
         ->add('Validate', SubmitType::class);
