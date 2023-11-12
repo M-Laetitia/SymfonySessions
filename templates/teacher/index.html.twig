@@ -4,38 +4,49 @@
 
 {% block body %}
 
+    <div class="main-content-page teacher-index-page">
 
+        <div id="title-add">
+            <h1>Teachers List</h1>
 
-<div class="container usersList">
-    <div class="top">
-        <h1>Liste des formateurs</h1>
-    </div>
-
-
-    <div class="list-person list-teacher">
-
-        <div class="top-list">
-            <p>Nom</p>
-            <p>Session en cours</p>
-            <p>Session à venir</p>
-         
         </div>
 
-        <div class="content-list">
+
+        <div id="top">
+            
+            <p>Name</p>
+            <p>Current Sessions</p>
+            <p>Dates</p>
+            <p>Next sessions</p>
+            <p>Dates</p>
+            
+        </div>
+
+
+        <div class="session-list" id="teacher-list"> 
             {% for teacher in teachers %}
-                <div>
-                    <a href="{{ path('show_teacher', {'id': teacher.id }) }}">{{teacher}}</a>
-                    <p></p>
-                    <p>en cours</p>
-                    <p>à venir</p>
+            <div class="list-ind-teacher">
+                <a href="{{ path('show_teacher', {'id': teacher.id }) }}">{{ teacher }}</a>
+        {% set currentDate = date('now') %}
+                {% for session in teacher.sessions %}
                     
-                </div>
-            {% endfor %}
+                    {% if currentDate >= session.startDate and currentDate <= session.endDate %}
+                        <a href="{{ path('show_session', {'id': session.id }) }}"><p>{{ session.name }}</p></a>
+                        <p>{{ session.startDate|date("d.m.Y") }} <br> {{ session.endDate|date("d.m.Y") }} </p>
+                    {% elseif currentDate < session.startDate %}
+                        <p>{{ session.name }}</p>
+                        <p>{{ session.startDate|date("d.m.Y") }} <br> {{ session.endDate|date("d.m.Y") }} </p>
+                    {% endif %}
+                {% endfor %}
+        
+               
+            </div>
+            <div class="line"></div>
+        {% endfor %}
         </div>
 
-    </div>
+    <div>
 
-</div>
 
 
 {% endblock %}
