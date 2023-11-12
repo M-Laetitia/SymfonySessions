@@ -99,6 +99,10 @@ class Session
         return count($this->students);
     }
  
+    public function getNbPlaceRemaining(): ?int {
+        return $this->nbPlaceTotal - count($this->students);
+    }
+ 
 
     /**
      * @return Collection<int, Programme>
