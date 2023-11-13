@@ -18,10 +18,7 @@
         {# Remix Icon #}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" integrity="sha512-HXXR0l2yMwHDrDyxJbrMD9eLvPe3z3qL3PPeozNTsiHJEENxx8DH2CxmV05iwG0dwoz5n4gQZQyYLUNt1Wdgfg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        {# Jquery #}
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-
+       
         {% block stylesheets %}
             <link rel="stylesheet" href="{{asset('css/style.css')}}">
             <link rel="stylesheet" href="{{asset('css/studentPage.css')}}">
@@ -90,55 +87,11 @@
             </div>
         </div>
 
+
+         {# Jquery #}
+         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="{{ asset('js/script.js') }}"></script>
+
     </body>
 
-    <script>
-        
-        $(document).ready(function () {
-            // On hover, toggle classes for both i and a elements
-            $('#team-icon, #team-link').hover(
-                function () {
-                    $('#team-icon').toggleClass('ri-team-line ri-team-fill');
-                },
-                function () {
-                    $('#team-icon').toggleClass('ri-team-line ri-team-fill');
-                }
-            );
-        
-            $('#repository-icon, #repository-link').hover(
-                function () {
-                    $('#repository-icon').toggleClass('ri-git-repository-line ri-git-repository-fill');
-                },
-                function () {
-                    $('#repository-icon').toggleClass('ri-git-repository-line ri-git-repository-fill');
-                }
-            );
-        
-            $('#dashboard-icon, #dashboard-link').hover(
-                function () {
-                    $('#dashboard-icon').toggleClass('ri-dashboard-line ri-dashboard-fill');
-                },
-                function () {
-                    $('#dashboard-icon').toggleClass('ri-dashboard-line ri-dashboard-fill');
-                }
-            );
-        
-            $('#calendar-icon, #calendar-link').hover(
-                function () {
-                    $('#calendar-icon').toggleClass('ri-calendar-line ri-calendar-fill');
-                },
-                function () {
-                    $('#calendar-icon').toggleClass('ri-calendar-line ri-calendar-fill');
-                }
-            );
-        
-            // // Check if the link corresponds to the current page and add the 'active' class
-            // if (window.location.href.includes("student")) {
-            //     $("#team-link").addClass("active");
-            // }
-        
-        
-        });
-
-    </script>  
 </html>
