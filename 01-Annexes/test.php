@@ -79,3 +79,10 @@ $builder
     // Redirect back to the session page
     return $this->redirectToRoute('show_session', ['id' => $id]);
     }
+
+
+    // https://grafikart.fr/tutoriels/sass-installation-1101
+
+// ./dart-sass/sass --help
+// ./dart-sass/sass public/sass/style.scss style.css
+// ./dart-sass/sass public/sass/style.scss style.css --watch
