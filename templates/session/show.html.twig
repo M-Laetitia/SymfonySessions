@@ -43,7 +43,7 @@
 
         {% for student in session.students %}
             <a href="{{ path('show_student', {'id': session.id }) }}">{{student}}</a>
-            <a href="{{ path('remove_student_from_session', {'id': session.id, 'studentId': student.id}) }}">Remove</a>
+            <a href="{{ path('remove_student_from_session', {'session': session.id, 'student': student.id}) }}">Remove</a>
              <br>
              {% endfor %}
         {% else %}
@@ -51,9 +51,24 @@
     {% endif %}
 
 
+    <h2>Liste des stagiaires non inscrits</h2>
+
+
+
+        {% for student in noneRegisteredStudents %}
+            <a href="{{ path('show_student', {'id': session.id }) }}">{{student}}</a>
+            <a href="{{ path('remove_student_from_session', {'session': session.id, 'student': student.id}) }}">Remove</a>
+            <br>
+            {% endfor %}
+        {% else %}
+            <p>Aucun stagiaires à ajouter .</p>
+
+
+
     <h3>Ajouter module</h3>
 
         {{ form_start(formAddProgramme) }}
+            {{ form_errors(formAddProgramme) }}
 
             {{ form_row(formAddProgramme.duration) }}
             {{ form_row(formAddProgramme.moduleFormation) }}
@@ -65,6 +80,8 @@
     <h3>Ajouter stagaire</h3>
 
     {{ form_start(formAddStudentSession) }}
+        {{ form_errors(formAddStudentSession) }}
+
         {{ form_row(formAddStudentSession.students) }}
         {{ form_row(formAddStudentSession.Validate) }}
 
