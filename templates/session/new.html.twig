@@ -16,7 +16,7 @@
 
 
     {{ form_start(formAddSession) }}
-
+        {{ form_errors(formAddSession) }}
         
 
         <div>{{ form_row(formAddSession.formation) }}</div>
@@ -30,7 +30,6 @@
         {{ form_row(formAddSession.Validate) }}
 
     {{ form_end(formAddSession) }}
-
 
 {% endblock %}
 
