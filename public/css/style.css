@@ -11,7 +11,6 @@
     /* --body-font: "Poppins", sans-serif;
     --second-font: "Lora", serif; */
 
-    
     --big-font-size: 2.25rem;
     --interm-font-size: 2rem;
     --medium-font-size: 1.3rem;
@@ -31,7 +30,8 @@
     --main-color: #431377;
     --light-color: #EBEBF5;
     --highlight--01 : #FE8F8F;
-    --highlight--02 : #FF7EA5;
+    /* --highlight--02 : #FF7EA5; */
+    --highlight--02 : #ff7e7e;
     
     
     --highlight--03 : #20DEFF;
