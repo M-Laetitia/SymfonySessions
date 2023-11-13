@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -22,21 +23,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: 'Please enter an email')]
     private ?string $email = null;
 
     #[ORM\Column]
-    private array $roles = [];
+    private array $roles = ["ROLE_USER"];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
+
     private ?string $password = null;
 
+    // #[ORM\Column(length: 255)]
+    // #[Assert\EqualTo(
+    //     propertyPath: 'repeatPassword',
+    //     message: 'The 2 passwords must match'
+    // )]
+    // private ?string $repeatPassword = null;
+
+
+
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(message: 'Please enter a first name')]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(message: 'Please enter a last name')]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 100, nullable: true)]
