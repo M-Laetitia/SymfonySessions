@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+// use Assert\LessThan;
 use App\Entity\Student;
 use App\Entity\Formation;
 use App\Entity\Programme;
@@ -10,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SessionRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SessionRepository::class)]
 class Session
@@ -20,15 +22,41 @@ class Session
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank (message: "Please select a starting date")]
+    #[Assert\GreaterThanOrEqual(
+        "today",
+        message : 'The selected date must be greater than or equal to the current date.'
+    )]
+    #[Assert\When(
+        expression: 'this.getEndDate() !=null',
+        constraints: [
+            new Assert\LessThan(
+                propertyPath: 'endDate',
+                message: 'The selected end date must be later than the start date.'
+            )
+        ]
+    )]
     private ?\DateTimeInterface $startDate = null;
 
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message: 'Please select an ending date')]
+    #[Assert\When(
+        expression: 'this.getStartDate() != null',
+        constraints: [
+            new Assert\GreaterThan(
+                propertyPath: 'dateStart',
+                message: 'The selected start date must be earlier than the end date.'
+            )
+        ]
+    )]
     private ?\DateTimeInterface $endDate = null;
 
+
     #[ORM\Column]
+    #[Assert\GreaterThan(value: 0, message: 'The value must be greater than 0')]
     private ?int $nbPlaceTotal = null;
-
-
+    
 
     #[ORM\OneToMany(mappedBy: 'session', targetEntity: Programme::class, orphanRemoval: true)]
     private Collection $programmes;
