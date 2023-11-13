@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\StudentRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: StudentRepository::class)]
 class Student
@@ -21,6 +22,12 @@ class Student
     private ?string $sexe = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+
+    #[Assert\NotBlank(message: 'Please select a birthdate')]
+    #[Assert\GreaterThanOrEqual(
+        "today",
+        message: 'Date must be greater than or equal to current date.'
+    )]
     private ?\DateTimeInterface $birthday = null;
 
     #[ORM\Column(length: 100)]
@@ -161,7 +168,7 @@ class Student
 
     public function removeSession(Session $session): static
     {
-        $this->session->removeElement($session);
+        $this->sessions->removeElement($session);
 
         return $this;
     }
