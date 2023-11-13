@@ -30,8 +30,12 @@ class SessionType extends AbstractType
             ])
 
             ->add('name', TextType::class)
-            ->add('startDate' , DateType::class)
-            ->add('endDate' , DateType::class)
+            ->add('startDate' , DateType::class, [
+                'widget' => 'single_text',
+            ])
+            ->add('endDate' , DateType::class, [
+                'widget' => 'single_text',
+            ])
             ->add('nbPlaceTotal' , IntegerType::class)
 
 
