@@ -77,7 +77,7 @@ class SessionController extends AbstractController
  
  
     #[Route('/session/{id}', name: 'show_session')]
-    public function show(Session $session, Request $request, EntityManagerInterface $entityManager): Response
+    public function show(Session $session = null, Request $request, EntityManagerInterface $entityManager, SessionRepository $sr): Response
     {
  
         //^ Form to add Module
@@ -99,8 +99,6 @@ class SessionController extends AbstractController
         //^ Form to add Student
 
         $programme->setSession($session);
-
-
         
         $formStudentSession = $this->createForm(StudentSessionType::class);
         $formStudentSession->handleRequest($request);
@@ -118,30 +116,34 @@ class SessionController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
         }
+
+        $noneRegisteredStudents = $sr->findNoneRegistered($session->getId());
  
         return $this->render('session/show.html.twig', [
             'session' => $session,
             'formAddProgramme' => $form,
-            'formAddStudent' => $formStudentSession->createView(),
+            // 'formAddStudent' => $formStudentSession->createView(),
+            'noneRegisteredStudents' => $noneRegisteredStudents,
             'formAddStudentSession' => $formStudentSession->createView(),
             'edit' => $programme->getId()
         ]);
     }
 
 
-    #[Route('/session/{id}/delete/{studentId}', name: 'remove_student_from_session')]
-    public function removeStudent($id, $studentId, EntityManagerInterface $entityManager): Response
+    #[Route('/session/{session}/delete/{student}', name: 'remove_student_from_session')]
+    public function removeStudent(Session $session, Student $student, EntityManagerInterface $entityManager): Response
     {
-        $session = $entityManager->find(Session::class, $id);
-        $student = $entityManager->find(Student::class, $studentId);
+        // $session = $entityManager->find(Session::class, $id);
+        // $student = $entityManager->find(Student::class, $studentId);
     
-        if ($session && $student) {
+       
+        // if ($session && $student) {
             $session->removeStudent($student);
             $entityManager->flush();
-        }
+        // }
     
 
-    return $this->redirectToRoute('show_session', ['id' => $id]);
+    return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
     }
 
 }
