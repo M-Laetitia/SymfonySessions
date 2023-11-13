@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -27,6 +28,10 @@ class RegistrationFormType extends AbstractType
             
             ->add('plainPassword', RepeatedType::class, [   
                 'mapped' => false,
+                'constraints' => [
+                        new NotBlank(),
+                        new Regex('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{20,}$/')
+                ],
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
                 'options' => ['attr' => ['class' => 'password-field']],
@@ -54,3 +59,5 @@ class RegistrationFormType extends AbstractType
         ]);
     }
 }
+
+
