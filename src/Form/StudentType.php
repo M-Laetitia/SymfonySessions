@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
@@ -22,15 +23,18 @@ class StudentType extends AbstractType
     {
         $builder
             ->add('sexe' , TextType::class)
-            ->add('birthday', DateType::class)
-            ->add('firstName' , TextType::class)
+            ->add('birthday', DateType::class, [
+                'widget' => 'single_text',
+            ])
+            ->add('firstName' , TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('lastName' , TextType::class)
-            ->add('email' , TextType::class)
+            ->add('email' , EmailType::class)
             ->add('phoneNumber' , TextType::class)
             ->add('city' , TextType::class)
-
-           
-
             ->add('Validate', SubmitType::class)
         ;
     }
