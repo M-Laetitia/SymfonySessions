@@ -1,6 +1,7 @@
 <?php
  namespace App\Controller;
- 
+
+use App\Service\ValidationService;
 use App\Entity\Session;
 use App\Entity\Student;
 use App\Entity\Programme;
@@ -82,11 +83,20 @@ class SessionController extends AbstractController
         return $this->redirectToRoute('app_session');
     }
  
+
  
     #[Route('/session/{id}', name: 'show_session')]
-    public function show(Session $session = null, Request $request, EntityManagerInterface $entityManager, SessionRepository $sr): Response
+    public function show($id, ValidationService $validationService, Session $session = null, Request $request, EntityManagerInterface $entityManager, SessionRepository $sr): Response
     {
  
+        $entityClassName = "App\Entity\Session";
+
+        if (!$validationService->isValidId($id, $entityClassName)) {
+            // Redirection vers une autre page si l'ID n'est pas valide
+            return $this->redirectToRoute('app_home'); 
+        }
+
+
         //^ Form to add Module
         $programme = new Programme();
         $programme->setSession($session);
