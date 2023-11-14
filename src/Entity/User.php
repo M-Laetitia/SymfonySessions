@@ -2,19 +2,24 @@
 
 namespace App\Entity;
 
+use DateTimeImmutable;
 use App\Entity\Session;
 use App\Entity\ModuleFormation;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use Vich\UploaderBundle\Entity\File;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+
+#[Vich\Uploadable]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -53,8 +58,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: 'Please enter a last name')]
     private ?string $lastName = null;
 
-    #[ORM\Column(length: 100, nullable: true)]
+    // #[ORM\Column(length: 100, nullable: true)]
+    // private ?string $avatar = null;
+    /**
+     * 
+     * 
+     * @Vich\UploadableField(mapping="avatar", fileNameProperty="avatar")
+     *
+     * @var File|null
+     */
+    private $avatarFile;
+
+    /**
+     * @ORM\Column(length: 100, nullable: true)
+     */
     private ?string $avatar = null;
+
+    // ...
+
+    public function getAvatarFile(): ?File
+    {
+        return $this->avatarFile;
+    }
+
+    public function setAvatarFile(?File $avatarFile): void
+    {
+        $this->avatarFile = $avatarFile;
+    }
+
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): void
+    {
+        $this->avatar = $avatar;
+    }
+
 
     #[ORM\Column]
     private ?bool $isVerified = false;
@@ -165,17 +207,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAvatar(): ?string
-    {
-        return $this->avatar;
-    }
+    // public function getAvatar(): ?string
+    // {
+    //     return $this->avatar;
+    // }
 
-    public function setAvatar(?string $avatar): static
-    {
-        $this->avatar = $avatar;
+    // public function setAvatar(?string $avatar): static
+    // {
+    //     $this->avatar = $avatar;
 
-        return $this;
-    }
+    //     return $this;
+    // }
+
+
+
+    // public function setAvatar(?File $avatar): static
+    // {
+    //     $this->avatar = $avatar;
+
+    //     if ($avatar) {
+    //         // Mettez à jour la propriété "updatedAt" pour déclencher le téléchargement
+    //         $this->updatedAt = new DateTimeImmutable();
+    //     }
+
+    //     return $this;
+    // }
+
+
 
     public function isIsVerified(): ?bool
     {
@@ -242,6 +300,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
+
+
 
     public function __toString() {
         return $this->firstName. " " .$this->lastName;
