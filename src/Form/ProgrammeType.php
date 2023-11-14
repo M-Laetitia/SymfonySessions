@@ -33,6 +33,8 @@ class ProgrammeType extends AbstractType
             'class' => ModuleFormation::class,
             'choice_label' => 'name', 
             'placeholder' => 'Choose a module', // Optional, adds an empty option at the beginning
+            'choices' => $options['modules'], 
+            
         ])
 
 
@@ -43,6 +45,7 @@ class ProgrammeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Programme::class,
+            'modules' => [], // Définissez ici un tableau vide par défaut pour éviter l'erreur.
         ]);
     }
 }
