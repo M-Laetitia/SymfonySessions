@@ -1,0 +1,245 @@
+/*~ ---------------------------------- */
+/*~ Root                               */
+/*~ ---------------------------------- */
+:root {
+  /* --header-height: 3.5rem; */
+  /*? Font ------------------------- */
+  /* .5rem = 8px / 1rem = 16px  / 1.5rem = 24px*/
+  /* --body-font: "Poppins", sans-serif;
+  --second-font: "Lora", serif; */
+  --big-font-size: 2.25rem;
+  --interm-font-size: 2rem;
+  --medium-font-size: 1.3rem;
+  --normal-font-size: .938rem;
+  --small-font-size: .813rem;
+  --tiny-font-size: .74rem;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semi-bold: 600;
+  /*? Color ------------------------- */
+  /* --first-color: hsl(195, 100%, 30%); */
+  --black-color:#251f2c;
+  --main-color: #431377;
+  --light-color: #EBEBF5;
+  --highlight--01: #FE8F8F;
+  /* --highlight--02 : #FF7EA5; */
+  --highlight--02: #ff7e7e;
+  --highlight--03: #20DEFF;
+  --highlight--04: #FE8F8F;
+  --highlight--05: #B676D4;
+  --gradient-color-02: linear-gradient(90deg,
+                     #B676D4,
+                     #FF7EA5);
+  --gradient-color-01: linear-gradient(90deg,
+                     #FE8FB5,
+                     #FE8F8F);
+  --first-color:#5858ba;
+  --gradient-color: linear-gradient(90deg,
+                     hsl(210,62%,25%),
+                     hsl(192, 62%, 25%));
+  --title-color: hsl(210,52%,20%);
+  --text-color: hsl(210,24%,15%);
+  --white-color: #f0efef;
+  --body-color: hsl(210, 55%,85%);
+  /*? z index --------------------- */
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+@media screen and (min-width: 1024px) {
+  :root {
+    --big-font-size: 4rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+  }
+}
+/*~ ---------------------------------- */
+/*~ Reset                              */
+/*~ ---------------------------------- */
+/* Box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* Reset margins */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+figure,
+picture {
+  margin: 0;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/*~ ---------------------------------- */
+/*~ BODY                               */
+/*~ ---------------------------------- */
+body {
+  font-family: "Red Hat Display", sans-serif;
+  background-color: #f6f6fe;
+  display: flex;
+  /* height: 100%; */
+  /* background-color: var(--main-color); */
+}
+
+#content-container {
+  background-color: var(--main-color);
+  width: 100%;
+  min-height: 100vh;
+  height: auto; /* Initial value for dynamic adjustment */
+  /* height: 100vh; */
+  padding: 1.7rem;
+  margin-left: 17rem;
+}
+
+.container {
+  width: 60%;
+  /* height: 100%; */
+  margin: auto;
+  /* justify-content: space-between; */
+  background-color: pink;
+}
+
+#sub-container {
+  background-color: var(--light-color);
+  height: 100%;
+  border-radius: 3rem;
+}
+
+.main-content-page {
+  /* background-color: red; */
+  width: 80%;
+  height: 100%;
+  /* height: 500px; */
+  margin: auto;
+  translate: 1rem 3rem;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+}
+
+/*~ ---------------------------------- */
+/*~ HEADER & NAV                       */
+/*~ ---------------------------------- */
+nav {
+  background-color: var(--main-color);
+  width: 18rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 1rem 3rem 0rem 3rem;
+  column-gap: 3rem;
+  position: fixed;
+}
+
+nav a {
+  color: var(--white-color);
+}
+
+nav #nav-links {
+  display: flex;
+  column-gap: 2rem;
+  flex-direction: column;
+  row-gap: 6.5rem;
+  margin-top: 3rem;
+  padding-left: 5rem;
+  font-size: var(--medium-font-size);
+}
+
+nav #nav-links p {
+  display: flex;
+  align-items: center;
+  column-gap: 1.6rem;
+}
+
+nav #user-panel {
+  display: flex;
+  display: flex;
+  column-gap: 1rem;
+}
+
+#nav-links .ri-team-line,
+#nav-links .ri-git-repository-line,
+#nav-links .ri-dashboard-line,
+#nav-links .ri-calendar-line {
+  color: var(--light-color);
+  font-size: 1.8rem;
+  position: absolute;
+  translate: -35px -4px;
+  transition: 0.8s ease-out;
+}
+
+#nav-links .ri-team-fill,
+#nav-links .ri-git-repository-fill,
+#nav-links .ri-dashboard-fill,
+#nav-links .ri-calendar-fill {
+  color: var(--highlight--01);
+  font-size: 1.8rem;
+  position: absolute;
+  translate: -35px -4px;
+  transition: 0.3s ease-in-out;
+}
+
+#team-link,
+#repository-link,
+#dashboard-link,
+#calendar-link {
+  color: var(--light-color);
+  padding: 0.8rem;
+  width: 13rem;
+  border-top-left-radius: 0.6rem;
+  border-bottom-left-radius: 0.6rem;
+  background-color: transparent;
+  position: absolute;
+  transition: background-color 0.8s ease-out;
+}
+
+#team-link:hover,
+#repository-link:hover,
+#dashboard-link:hover,
+#calendar-link:hover {
+  background-color: var(--highlight--01);
+  transition: background-color 0.3s ease-in-out;
+}
+
+/*# sourceMappingURL=general.css.map */

@@ -1,0 +1,53 @@
+/*~ ---------------------------------- */
+/*~ TEACHER PAGE                       */
+/*~ ---------------------------------- */
+
+/*& INDEX ---------------------------- */
+
+.teacher-index-page #title-add h1 {
+    color: var(--highlight--05);
+}
+
+/* --gradient-color-02 */
+
+.teacher-index-page #top {
+    display: grid;
+    grid-template-columns: 20% 26% 14% 26% 14%;
+    justify-items: start;
+    margin-top: 3rem;
+    background: var(--gradient-color-02);
+    color: var(--light-color);
+    padding: 1rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    margin-bottom: 2rem;
+}
+
+.list-ind-teacher {
+    background-color: white;
+    display: grid;
+    grid-template-columns: 20% 26% 14% 26% 14%;
+    justify-items: center;
+    justify-items: start;
+    padding: 1.5rem;
+}
+
+#teacher-list .line {
+    background: var(--gradient-color-02);
+    width: 100%;
+    height: 1px;
+    padding: 0;
+    margin: 0;
+}
+
+#teacher-list {
+    border-bottom: 3px solid var(--highlight--05);
+    border-radius: 0 0 1rem 1rem;
+    overflow: hidden;
+    margin-bottom: 3rem;
+}
+
+#teacher-list a {
+    font-weight: 600;
+    color: var(--black-color);
+}

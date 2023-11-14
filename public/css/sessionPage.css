@@ -1,133 +1,126 @@
 /*~ ---------------------------------- */
 /*~ SESSION PAGE                       */
 /*~ ---------------------------------- */
-
 /*& INDEX----------------------------- */
-
 .session-index-page h1 {
-    color: var(--highlight--02);
+  color: var(--highlight--02);
 }
 
 #title-add {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    /* padding: 0rem 0.8rem */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* padding: 0rem 0.8rem */
 }
 
 #title-add .fa-calendar-plus {
-    color: var(--highlight--02);
-    font-size: var(--interm-font-size) ;
+  color: var(--highlight--02);
+  font-size: var(--interm-font-size);
 }
 
-
-
-
 .session-index-page #top {
-    display: grid;
-    grid-template-columns: 34% 15% 15% 10% 17% 9%;
-    justify-items: start;
-    margin-top: 3rem;
-    background-color: var(--main-color);
-    color: var(--light-color);
-    padding: 1rem;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+  display: grid;
+  grid-template-columns: 34% 15% 15% 10% 17% 9%;
+  justify-items: start;
+  margin-top: 3rem;
+  background-color: var(--main-color);
+  color: var(--light-color);
+  padding: 1rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 }
 
 .session-top {
-    background-color:  var(--highlight--02);
-    font-size: var(--tiny-font-size);
-    margin-top: 2rem;
-    padding: 0.2rem;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.4rem 3rem 0.4rem 1rem;
-    
+  background-color: var(--highlight--02);
+  font-size: var(--tiny-font-size);
+  margin-top: 2rem;
+  padding: 0.2rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 3rem 0.4rem 1rem;
 }
 
 #current-session-list,
 #upcoming-session-list,
 #past-session-list {
-    background-color: white;
-    border-radius:0 0 1rem 1rem;
-    overflow: hidden;
-    border-bottom: 3px solid var(--main-color);
+  background-color: white;
+  border-radius: 0 0 1rem 1rem;
+  overflow: hidden;
+  border-bottom: 3px solid var(--main-color);
 }
+
 #current-session-list div,
 #upcoming-session-list div,
 #past-session-list div {
-    background-color: white;
-    display: grid;
-    grid-template-columns: 34% 15% 15% 10% 17% 9%;
-    justify-items: center;
-    justify-items: start;
-    padding: 1rem;
-    border-bottom: 1px solid var(--highlight--02);
-
+  background-color: white;
+  display: grid;
+  grid-template-columns: 34% 15% 15% 10% 17% 9%;
+  justify-items: center;
+  justify-items: start;
+  padding: 1rem;
+  border-bottom: 1px solid var(--highlight--02);
 }
 
 .session-list div .ri-git-repository-commits-fill {
-    font-size: var(--medium-font-size);
-    color: var(--highlight--03);
+  font-size: var(--medium-font-size);
+  color: var(--highlight--03);
 }
 
 .session-list div h3 a {
-    font-size: var(--normal-font-size);
-    color: var(--highlight--02);
+  font-size: var(--normal-font-size);
+  color: var(--highlight--02);
 }
 
 #upcoming-session-top {
-    background-color: var(--highlight--03);
+  background-color: var(--highlight--03);
 }
 
 #upcoming-session-list div h3 a {
-    color: var(--highlight--03);
+  color: var(--highlight--03);
 }
 
 #upcoming-session-list div .ri-git-repository-commits-fill {
-    color: var(--highlight--02);
+  color: var(--highlight--02);
 }
 
 #upcoming-session-list div {
-    border-bottom: 1px solid var(--highlight--03);
+  border-bottom: 1px solid var(--highlight--03);
 }
 
-
 #show-past-sessions-btn {
-    display: inline-block;
-    margin-top: 3rem;
-    background-color: white;
-    padding: 0.5rem;
-    border-radius: 0.6rem;
-    color:var(--highlight--02); 
-    border: 1px solid var(--highlight--02);
-    cursor: pointer;
-    transition: ease-in-out 0.3s;
+  display: inline-block;
+  margin-top: 3rem;
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 0.6rem;
+  color: var(--highlight--02);
+  border: 1px solid var(--highlight--02);
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
 }
 
 #show-past-sessions-btn:hover {
-    margin-top: 3rem;
-    background-color: var(--highlight--02);
-    padding: 0.5rem;
-    border-radius: 0.6rem;
-    color: white; 
-    border: 1px solid var(--highlight--02) ;
-    cursor: pointer;
+  margin-top: 3rem;
+  background-color: var(--highlight--02);
+  padding: 0.5rem;
+  border-radius: 0.6rem;
+  color: white;
+  border: 1px solid var(--highlight--02);
+  cursor: pointer;
 }
 
-
 #past-session-top {
-    background-color: var(--main-color);
+  background-color: var(--main-color);
 }
 
 #past-session-list div {
-    border-bottom: 1px solid var(--main-color);
+  border-bottom: 1px solid var(--main-color);
 }
 
-#past-session-list div h3 a{
-    color: var(--main-color);
+#past-session-list div h3 a {
+  color: var(--main-color);
 }
 
+/*# sourceMappingURL=sessionPage.css.map */
