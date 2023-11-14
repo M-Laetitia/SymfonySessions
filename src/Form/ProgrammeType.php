@@ -13,6 +13,12 @@ use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
+
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
+
+use Symfony\Component\Validator\Constraints\File;
+
 class ProgrammeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -28,15 +34,12 @@ class ProgrammeType extends AbstractType
             'attr' => ['min' => 0],
         ])
 
-
         ->add('moduleFormation', EntityType::class, [
             'class' => ModuleFormation::class,
             'choice_label' => 'name', 
             'placeholder' => 'Choose a module', // Optional, adds an empty option at the beginning
-            'choices' => $options['modules'], 
-            
+            'choices' => $options['modules'],  
         ])
-
 
         ->add('Validate', SubmitType::class);
     }

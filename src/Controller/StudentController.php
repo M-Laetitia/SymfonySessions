@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\ValidationService;
 use App\Entity\Session;
 use App\Entity\Student;
 use App\Form\StudentType;
@@ -71,10 +72,15 @@ class StudentController extends AbstractController
     
      // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
      #[Route('/student/{id}', name: 'show_student')]
-     public function show(Student $student): Response {
- 
-         return $this->render('student/show.html.twig', [
-             'student' => $student
-         ]);
-     }
+     public function show(Student $student = null): Response
+    {
+        if (!$student) {
+            // L'entité Student avec cet ID n'existe pas, redirigez vers la page d'accueil ou une autre page.
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('student/show.html.twig', [
+            'student' => $student
+        ]);
+    }
 }
