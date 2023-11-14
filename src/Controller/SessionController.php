@@ -21,15 +21,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SessionController extends AbstractController
 {
  
- 
- 
     #[Route('/session', name: 'app_session')]
     public function index(SessionRepository $sessionRepository): Response
     {
         $sessions = $sessionRepository->findBy([], ["endDate" => "ASC"]);
+
+        $currentSessions = $sessionRepository->findCurrentSessions();
+        $upcomingSessions = $sessionRepository->findUpcomingSessions();
+        $pastSessions = $sessionRepository->findPastSessions();
+        // dd($pastSessions);
+
         return $this->render('session/index.html.twig', [
             // 'controller_name' => 'SessionController',
-            'sessions' => $sessions
+            'sessions' => $sessions,
+            'currentSessions' => $currentSessions,
+            'upcomingSessions' => $upcomingSessions,
+            'pastSessions' => $pastSessions,
         ]);
     }
  
@@ -82,49 +89,31 @@ class SessionController extends AbstractController
  
         //^ Form to add Module
         $programme = new Programme();
-        //  when a form  needs to be associated with a specific entity, use the setEntity method to set that entity on the form. 
-        // Before creating the form, set the Session entity on the Programme entity using $programme->setSession($session); = "I'm creating a new Programme, and it is associated with this specific Session."
         $programme->setSession($session);
-        $form = $this->createForm(ProgrammeType::class, $programme);
+
+        $noneAddedModules = $sr->findNoneAdded($session->getId());
+ 
+
+        $form = $this->createForm(ProgrammeType::class, $programme, ['modules' => $noneAddedModules]);
         $form->handleRequest($request);
  
         if ($form->isSubmitted() && $form->isValid()) {
- 
             $programme = $form->getData();
             $entityManager->persist($programme);
             $entityManager->flush();
             return $this->redirectToRoute('show_session', ['id' => $programme->getSession()->getId()]);
         }
  
-        //^ Form to add Student
-
-        $programme->setSession($session);
         
-        $formStudentSession = $this->createForm(StudentSessionType::class);
-        $formStudentSession->handleRequest($request);
- 
-        if ($formStudentSession->isSubmitted() && $formStudentSession->isValid()) {
-            $students = $formStudentSession->getData();
-
-            // Add students to the session
-            // get the data from the form. The form handles students, $students should now contain the selected students.
-            foreach ($students as $student) {
-                $session->addStudent($student);
-            }
-
-            $entityManager->persist($session);
-            $entityManager->flush();
-            return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
-        }
-
         $noneRegisteredStudents = $sr->findNoneRegistered($session->getId());
+        // dd($noneAddedModules);
+        
  
         return $this->render('session/show.html.twig', [
             'session' => $session,
             'formAddProgramme' => $form,
-            // 'formAddStudent' => $formStudentSession->createView(),
             'noneRegisteredStudents' => $noneRegisteredStudents,
-            'formAddStudentSession' => $formStudentSession->createView(),
+            'noneAddedModules' => $noneAddedModules,
             'edit' => $programme->getId()
         ]);
     }
@@ -139,6 +128,22 @@ class SessionController extends AbstractController
        
         // if ($session && $student) {
             $session->removeStudent($student);
+            $entityManager->flush();
+        // }
+    
+
+    return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+    }
+
+
+    #[Route('/session/{session}/add/{student}', name: 'add_student_from_session')]
+    public function addStudent(Session $session, Student $student, EntityManagerInterface $entityManager): Response
+    {
+        // $session = $entityManager->find(Session::class, $id);
+        // $student = $entityManager->find(Student::class, $studentId);
+
+        // if ($session && $student) {
+            $session->addStudent($student);
             $entityManager->flush();
         // }
     
