@@ -25,17 +25,28 @@ class StudentType extends AbstractType
             ->add('sexe' , TextType::class)
             ->add('birthday', DateType::class, [
                 'widget' => 'single_text',
+                
             ])
             ->add('firstName' , TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder' => 'First name',
                 ]
             ])
-            ->add('lastName' , TextType::class)
+            ->add('lastName' , TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Last name',
+                ]
+            ])
             ->add('email' , EmailType::class)
             ->add('phoneNumber' , TextType::class)
             ->add('city' , TextType::class)
-            ->add('Validate', SubmitType::class)
+            ->add('Validate', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn-submit'
+                ]
+            ])
         ;
     }
 
