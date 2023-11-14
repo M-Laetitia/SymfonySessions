@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\ValidationService;
 use App\Entity\User;
 use App\Form\TeacherType;
 use App\Repository\UserRepository;
@@ -76,7 +77,14 @@ class TeacherController extends AbstractController
 
     
     #[Route('/teacher/{id}', name: 'show_teacher')]
-    public function show(User $user): Response {
+    public function show(User $user = null): Response {
+
+
+        if (!$user) {
+            // L'entité User avec cet ID n'existe pas, redirigez vers la page d'accueil ou une autre page.
+            return $this->redirectToRoute('app_home');
+        }
+
 
         return $this->render('teacher/show.html.twig', [
             'user' => $user
