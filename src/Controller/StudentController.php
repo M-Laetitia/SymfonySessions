@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Session;
 use App\Entity\Student;
 use App\Form\StudentType;
 use App\Repository\StudentRepository;
@@ -25,11 +26,14 @@ class StudentController extends AbstractController
 
     #[Route('/student/new', name: 'new_student')]
     #[Route('/student/{id}/edit', name: 'edit_student')]
-    public function new_edit(Student $student = null, Request $request, EntityManagerInterface $entityManager) : Response
+    public function new_edit(Student $student = null, Session $session, Request $request, EntityManagerInterface $entityManager) : Response
     {
 
-        if(!$student) {
+        if(!$student && $session->getNbPlaceRemaining() < 0 ) {
             $student = new Student();
+        } elseif ($session->getNbPlaceRemaining() <= 0) {
+            // ajouter msg erreur
+            return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
         }
 
         $form = $this->createForm(StudentType::class, $student);
@@ -63,6 +67,8 @@ class StudentController extends AbstractController
         return $this->redirectToRoute('app_student');
     }
 
+
+    
      // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
      #[Route('/student/{id}', name: 'show_student')]
      public function show(Student $student): Response {
