@@ -10,23 +10,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+
 class AvatarType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('avatarFile', FileType::class, [
+            ->add('avatarFile', VichFileType::class, [
                 'required' => false,
-                'label' => 'Avatar',
-                // 'allow_delete' => true,
-                // 'download_label' => 'Download',
-                // 'download_uri' => true,
-                // 'image_uri' => true,
 
-                
-            ])
+            ]);
             
-            ->add('Enregistrer', SubmitType::class);
+            // ->add('Enregistrer', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

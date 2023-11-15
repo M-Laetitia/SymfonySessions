@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -63,16 +64,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * 
      * 
-     * @Vich\UploadableField(mapping="avatar", fileNameProperty="avatar")
+     * @Vich\UploadableField(mapping="avatars", fileNameProperty="avatar")
      *
      * @var File|null
      */
-    private $avatarFile;
+    private ?File $avatarFile;
 
     /**
      * @ORM\Column(length: 100, nullable: true)
      */
-    private ?string $avatar = null;
+    private ?string $avatar = "";
 
     // ...
 
@@ -81,9 +82,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->avatarFile;
     }
 
-    public function setAvatarFile(?File $avatarFile): void
+    public function setAvatarFile(?File $file): self
     {
-        $this->avatarFile = $avatarFile;
+        $this->avatarFile = $file;
+
     }
 
 
