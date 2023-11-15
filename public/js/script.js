@@ -11,6 +11,8 @@
 
     });
 
+
+
     $(document).ready(function () {
         // On hover, toggle classes for both i and a elements
         $('#team-icon, #team-link').hover(
@@ -57,6 +59,23 @@
     
     });
 
-
-
-
+    //^ change color label when focus on input ---------------------
+    $(document).ready(function () {
+        console.log("test")
+        $('.inputs').on('focus',function() {
+            console.log("click")
+            var label = $(this).prev('label'); 
+            console.log(label)
+            $(label).toggleClass('labelclicked');
+            var input = $(this);
+            $(input).toggleClass('inputChange')
+        })
+        $('.inputs').on('blur',function() {
+            console.log("click")
+            var label = $(this).prev('label'); 
+            console.log(label)
+            $(label).toggleClass('labelclicked');
+            var input = $(this);
+            $(input).toggleClass('inputChange')
+        })
+    });
