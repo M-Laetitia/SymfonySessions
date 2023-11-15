@@ -5,15 +5,20 @@
 {% block body %}
 
     <h1>Profile</h1>
+    {{ user}}
 
-
-
-
-    {{ form_start(form) }}
-        {{ form_row(form.avatar) }}
+    <div id="avatar-profil">
+        <img src="{{ asset('images/avatars/' ~ user.avatar) }}">
+    </div>
+    
    
-       
-    {{ form_end(form) }}
+
+    <div>
+        {{ form_start(form) }}
+        {{ form_row(form.avatar) }} 
+        {{ form_end(form) }}
+    </div>
+
 
 
     
@@ -21,3 +26,5 @@
 {% endblock %}
 
 
+{# <img src="{{ asset('bundles/profile/pictures/' ~ variable) }}"> #}
+{# <link rel="stylesheet" href="{{asset('css/teacherPage.css')}}"> #}
