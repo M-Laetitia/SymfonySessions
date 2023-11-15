@@ -31,10 +31,7 @@
         </div>
 
         <div class="session-list" id="current-session-list">
-            {% for session in sessions %}
-                {% set currentDate = date('now') %}
-    
-                {% if session.startDate <= currentDate and currentDate <= session.endDate %}
+            {% for session in currentSessions  %}
                     <div>
                         <h3><a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a></h3>
                         <p>{{session.startDate|date("d.m.Y")}}</p>
@@ -50,7 +47,6 @@
                             <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
                         {% endif %} #}
                     </div>
-                {% endif %}
             {% endfor %}                    
         </div>
 
@@ -60,10 +56,7 @@
         </div>
 
         <div class="session-list" id="upcoming-session-list">
-            {% for session in sessions %}
-                {% set currentDate = date('now') %}
-                {% if session.startDate > currentDate %}
-
+            {% for session in upcomingSessions %}
                 <div>
                     <h3> <a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a></h3>
                     <p>{{session.startDate|date("d.m.Y")}}</p>
@@ -71,7 +64,6 @@
                     <p>{{ session.nbPlacebooked }} / {{session.nbPlaceTotal}} </p>
                     <p>{{ session.nbPlaceRemaining }}</p>
                     <p><a href="{{ path('show_session', {'id': session.id }) }}"> <i class="ri-git-repository-commits-fill"></i></a></p>
-
                 </div>
         
                     {# {% if is_granted('ROLE_ADMIN') %}
@@ -79,7 +71,7 @@
                         <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
                     {% endif %} #}
                     
-                {% endif %}
+           
             {% endfor %}
         </div>
 
@@ -96,10 +88,7 @@
 
             <div class="session-list" id="past-session-list">
 
-                {% for session in sessions %}
-                    {% set currentDate = date('now') %}
-                    {% if session.endDate < currentDate %}
-
+                {% for session in pastSessions %}
                     <div>
                         <h3> <a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a></h3>
                         <p>{{session.startDate|date("d.m.Y")}}</p>
@@ -115,12 +104,14 @@
                             <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
                         {% endif %} #}
         
-                    {% endif %}
+                   
                 {% endfor %}
 
             </div>
 
         </div>
+
+
         
     </div>
 

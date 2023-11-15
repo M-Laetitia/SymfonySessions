@@ -8,9 +8,9 @@
 
         <div id="title-add">
             {% if edit %}
-            <h1>Add a student</h1>
-            {% else %}
             <h1>Edit a student</h1>
+            {% else %}
+            <h1>Add a student</h1>
             {% endif %}
         </div>
 
@@ -20,26 +20,39 @@
             {{ form_start(formAddStudent) }}
                 <div id="name-student-form">
                     <i class="fa-solid fa-user-plus"></i>
-                    <p>Name:</p>
+                    <p>NAME :</p>
                     <div class="last-first-name">{{ form_row(formAddStudent.lastName) }} {{ form_row(formAddStudent.firstName) }}</div>
                 </div>
+
+                <div id="back-left"></div>
+                <div id="back-right"></div>
         
-                <div>
+                <div id="inputs-form-student">
                     <div>
-                        {{ form_label(formAddStudent.sexe) }}
-                        {{ form_widget(formAddStudent.sexe) }}
+                        <div>
+                            {{ form_label(formAddStudent.sexe) }}
+                            {{ form_widget(formAddStudent.sexe) }}
+                        </div>
+                        <div>
+                            
+                            {{ form_row(formAddStudent.birthday) }}
+                        </div>
+
                     </div>
 
-
-                    <div> {{ form_row(formAddStudent.birthday) }}</div>
+                    <div>
+                        {{ form_row(formAddStudent.email) }}
+                        {{ form_row(formAddStudent.phoneNumber) }}
+                    </div>            
                 
                     <div>  {{ form_row(formAddStudent.city) }}</div>
-                
-                    <div> {{ form_row(formAddStudent.email) }}</div>
-                    <div> {{ form_row(formAddStudent.phoneNumber) }}</div>
+
                 </div>
                 
-                {{ form_row(formAddStudent.Validate) }}
+                <div id="submit-btn-form">
+                    {{ form_row(formAddStudent.Validate) }}
+                </div>
+                
             {{ form_end(formAddStudent) }}
 
         </div>

@@ -20,10 +20,15 @@
 
        
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{asset('css/style.css')}}">
             <link rel="stylesheet" href="{{asset('css/studentPage.css')}}">
             <link rel="stylesheet" href="{{asset('css/sessionPage.css')}}">
             <link rel="stylesheet" href="{{asset('css/teacherPage.css')}}">
+
+
+            <link rel="stylesheet" href="{{asset('css/general.css')}}">
+            
+
+
         {% endblock %}
 
         {% block javascripts %}
@@ -68,15 +73,24 @@
                 {% if app.user %}
                     <a href="#"><i class="fa-solid fa-user"></i></a>
                     <a href=" {{ path('app_logout') }}"><i class="ri-logout-circle-r-line"></i></a>
+
+                    
+                    <a href="{{ path('show_user', {'id': app.user.id }) }}">profil</a>
+                    <div id="avatarImg">
+                        <img src="" alt="">
+                    </div>
+
+
+
                 {% else %}
                     <a href=" {{ path('app_login') }}">Se connecter</a>
                     <a href=" {{ path('app_register') }}">S'enregistrer'</a>
+                    
                     
                 {% endif %}
              
             </div>
         </nav>
-
 
     
         <div id="content-container">

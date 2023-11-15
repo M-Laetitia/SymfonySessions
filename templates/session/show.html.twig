@@ -42,7 +42,7 @@
     {% if session.students| length > 0 %}
 
         {% for student in session.students %}
-            <a href="{{ path('show_student', {'id': session.id }) }}">{{student}}</a>
+            <a href="{{ path('show_student', {'id': student.id }) }}">{{student}}</a>
             <a href="{{ path('remove_student_from_session', {'session': session.id, 'student': student.id}) }}">Remove</a>
              <br>
              {% endfor %}
@@ -54,14 +54,23 @@
     <h2>Liste des stagiaires non inscrits</h2>
 
 
-
+    {% if session.nbPlaceRemaining <= 0 %}
+        <p>No more availaible places.</p>
+    {% else %}
         {% for student in noneRegisteredStudents %}
-            <a href="{{ path('show_student', {'id': session.id }) }}">{{student}}</a>
-            <a href="{{ path('remove_student_from_session', {'session': session.id, 'student': student.id}) }}">Remove</a>
+            <a href="{{ path('show_student', {'id': student.id }) }}">{{ student }}</a>
+            <a href="{{ path('add_student_from_session', {'session': session.id, 'student': student.id}) }}">add</a>
             <br>
-            {% endfor %}
-        {% else %}
-            <p>Aucun stagiaires à ajouter .</p>
+        {% endfor %}
+    {% endif %}
+
+        <h2>Liste des modules non ajoutées</h2>
+
+        {# {% for moduleFormation in noneAddedModules %}
+            <a href="#">{{moduleFormation}}</a>
+            <a href="#">add</a>
+            <br>
+        {% endfor %} #}
 
 
 
@@ -70,22 +79,26 @@
         {{ form_start(formAddProgramme) }}
             {{ form_errors(formAddProgramme) }}
 
-            {{ form_row(formAddProgramme.duration) }}
-            {{ form_row(formAddProgramme.moduleFormation) }}
-            {{ form_row(formAddProgramme.Validate) }}
+            {% for module in formAddProgramme.moduleFormation %}
+                
+           {{ form_row(module.duration) }}
+            {{ form_row(module.moduleFormation) }}
+            {{ form_row(module.Validate) }}
+            {% endfor %}
+ 
 
         {{ form_end(formAddProgramme) }}
 
 
-    <h3>Ajouter stagaire</h3>
 
-    {{ form_start(formAddStudentSession) }}
+
+    {# {{ form_start(formAddStudentSession) }}
         {{ form_errors(formAddStudentSession) }}
 
         {{ form_row(formAddStudentSession.students) }}
         {{ form_row(formAddStudentSession.Validate) }}
 
-   {{ form_end(formAddStudentSession) }}
+   {{ form_end(formAddStudentSession) }} #}
 
 
 
