@@ -118,9 +118,9 @@ CREATE TABLE IF NOT EXISTS `programme` (
   KEY `IDX_3DDCB9FF3A53B0DC` (`module_formation_id`),
   CONSTRAINT `FK_3DDCB9FF3A53B0DC` FOREIGN KEY (`module_formation_id`) REFERENCES `module_formation` (`id`),
   CONSTRAINT `FK_3DDCB9FF613FECDF` FOREIGN KEY (`session_id`) REFERENCES `session` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table symfonysessions.programme : ~14 rows (environ)
+-- Listage des données de la table symfonysessions.programme : ~15 rows (environ)
 REPLACE INTO `programme` (`id`, `session_id`, `module_formation_id`, `duration`) VALUES
 	(1, 1, 2, 3),
 	(2, 1, 3, 2),
@@ -135,7 +135,8 @@ REPLACE INTO `programme` (`id`, `session_id`, `module_formation_id`, `duration`)
 	(14, 5, 10, 4),
 	(15, 5, 11, 5),
 	(16, 5, 12, 7),
-	(17, 5, 13, 4);
+	(17, 5, 13, 4),
+	(18, 5, 2, 4);
 
 -- Listage de la structure de table symfonysessions. session
 CREATE TABLE IF NOT EXISTS `session` (
@@ -199,14 +200,15 @@ CREATE TABLE IF NOT EXISTS `student_session` (
   CONSTRAINT `FK_3D72602CCB944F1A` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table symfonysessions.student_session : ~9 rows (environ)
+-- Listage des données de la table symfonysessions.student_session : ~10 rows (environ)
 REPLACE INTO `student_session` (`student_id`, `session_id`) VALUES
 	(1, 2),
 	(2, 1),
-	(3, 1),
-	(4, 2),
+	(3, 5),
+	(4, 5),
 	(5, 1),
 	(6, 1),
+	(7, 5),
 	(8, 2),
 	(9, 2),
 	(10, 5);
