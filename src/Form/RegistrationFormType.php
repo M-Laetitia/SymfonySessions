@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -21,9 +22,21 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add('firstName', TextType::class)
-            ->add('lastName', TextType::class)
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'class' => 'inputs',
+                    ]
+                ])
+            ->add('firstName', TextType::class , [
+            'attr' => [
+                'class' => 'inputs',
+                ]
+            ])
+            ->add('lastName', TextType::class, [
+                'attr' => [
+                    'class' => 'inputs',
+                    ]
+                ])
             
             
             ->add('plainPassword', RepeatedType::class, [   
@@ -34,11 +47,11 @@ class RegistrationFormType extends AbstractType
                 ],
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
-                'options' => ['attr' => ['class' => 'password-field']],
+                'options' => ['attr' => ['class' => 'password-field inputs']],
                 'required' => true,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
- 
+       
             ])
 
             ->add('agreeTerms', CheckboxType::class, [
@@ -48,6 +61,12 @@ class RegistrationFormType extends AbstractType
                         'message' => 'You should agree to our terms.',
                     ]),
                 ],
+            ])
+
+            ->add('Register', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn-submit'
+                ]
             ])
         ;
     }
