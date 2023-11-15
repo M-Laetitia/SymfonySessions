@@ -231,4 +231,18 @@
   padding-bottom: 3.5rem;
 }
 
+@media screen and (max-width: 767px) {
+  #student-list .list-ind-student {
+    grid-template-columns: 20% 35% 20% 25%;
+  }
+  .started,
+  .not-started,
+  #top p:nth-child(5) {
+    display: none;
+  }
+  .student-index-page #top {
+    grid-template-columns: 20% 35% 20% 25%;
+  }
+}
+
 /*# sourceMappingURL=studentPage.css.map */
