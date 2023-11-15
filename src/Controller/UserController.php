@@ -7,8 +7,9 @@ use App\Form\AvatarType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
-use Vich\UploaderBundle\Handler\UploadHandler;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -23,7 +24,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/{id}', name: 'show_user')]
-    public function show(User $user = null, Security $security, Request $request, UploadHandler $uploadHandler, EntityManagerInterface $entityManager): Response {
+    public function show(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager): Response {
     $user = $security->getUser();
 
     // Si l'utilisateur n'est pas connecté, redirigez-le vers la page d'accueil ou une autre page.
@@ -36,13 +37,37 @@ class UserController extends AbstractController
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        // Gérez l'upload ici en utilisant le gestionnaire d'upload de VichUploaderBundle
-        $uploadHandler->upload($user, 'avatarFile');
+       
+        $avatarFile = $form->get('avatar')->getData();
+        // dd($avatarFile);
+ 
+        // this condition is needed because the 'avatar' field is not required
+            // so the image file must be processed only when a file is uploaded
+            if ($avatarFile) {
+                // $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
 
-      
-        $entityManager->flush();
+                $newFilename = uniqid().'.'.$avatarFile->guessExtension();
 
-        return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
+                // Move the file to the directory where avatars are stored
+                try {
+                    $avatarFile->move(
+                        $this->getParameter('avatars_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'avatarFilename' property to store the PDF file name
+                // instead of its contents
+                $user->setAvatar($newFilename);
+                // $entityManager->flush();
+            }
+
+            // ... persist the $product variable or any other work
+
+
+        return $this->redirectToRoute('show_user', ['id' => $user->getId()]);
     }
 
     return $this->render('user/show.html.twig', [
