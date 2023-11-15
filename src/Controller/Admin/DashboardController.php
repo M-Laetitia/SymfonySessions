@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\DashboardControllerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -10,6 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+
+    // The only requirement is to define the route in a controller method named index(), which is the one called by EasyAdmin to render the dashboard:
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
@@ -43,6 +46,50 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
+
+
+
+
+
+
+    // public function configureActions(Actions $actions): Actions
+    // {
+    //     $viewInvoice = Action::new('invoice', 'View invoice', 'fa fa-file-invoice')
+    //         ->linkToCrudAction('renderInvoice');
+
+    //     return $actions
+    //         // ...
+    //         ->add(Crud::PAGE_DETAIL, $viewInvoice)
+    //         // use the 'setPermission()' method to set the permission of actions
+    //         // (the same permission is granted to the action on all pages)
+    //         ->setPermission('invoice', 'ROLE_TEACHER')
+
+    //         // you can set permissions for built-in actions in the same way
+    //         ->setPermission(Action::NEW, 'ROLE_ADMIN')
+    //     ;
+    // }
+
+    // public function getFields(string $action): iterable
+    // {
+    //     return [
+    //         IdField::new('id'),
+    //         TextField::new('price'),
+    //         IntegerField::new('stock'),
+    //         // users must have this permission/role to see this field
+    //         IntegerField::new('sales')->setPermission('ROLE_ADMIN'),
+    //         FloatField::new('commission')->setPermission('ROLE_FINANCE'),
+    //         // ...
+    //     ];
+    // }
+
+
+    // public function configureCrud(Crud $crud): Crud
+    // {
+    //     return $crud
+    //         ->setEntityPermission('ROLE_ADMIN')
+    //         // ...
+    //     ;
+    // }
 }
 
 
