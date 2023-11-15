@@ -27,14 +27,11 @@ class StudentController extends AbstractController
 
     #[Route('/student/new', name: 'new_student')]
     #[Route('/student/{id}/edit', name: 'edit_student')]
-    public function new_edit(Student $student = null, Session $session, Request $request, EntityManagerInterface $entityManager) : Response
+    public function new_edit(Student $student = null, Request $request, EntityManagerInterface $entityManager) : Response
     {
 
-        if(!$student && $session->getNbPlaceRemaining() < 0 ) {
+        if(!$student) {
             $student = new Student();
-        } elseif ($session->getNbPlaceRemaining() <= 0) {
-            // ajouter msg erreur
-            return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
         }
 
         $form = $this->createForm(StudentType::class, $student);
@@ -70,7 +67,7 @@ class StudentController extends AbstractController
 
 
     
-     // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
+    // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
      #[Route('/student/{id}', name: 'show_student')]
      public function show(Student $student = null): Response
     {
