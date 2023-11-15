@@ -282,3 +282,26 @@ $width-form: 35rem;
    
 }
 
+@media screen and (max-width: 767px) {
+    #student-list .list-ind-student {
+        grid-template-columns: 20% 35% 20% 25% ;
+
+    }
+
+    .started,
+    .not-started,
+    #top p:nth-child(5) {
+        display: none;
+    }
+
+    .student-index-page #top {
+        grid-template-columns: 20% 35% 20% 25% ;
+    }
+
+
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    
+}
