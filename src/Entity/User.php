@@ -7,10 +7,8 @@ use App\Entity\Session;
 use App\Entity\ModuleFormation;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
-use Vich\UploaderBundle\Entity\File;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -20,7 +18,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 
-#[Vich\Uploadable]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -59,34 +57,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: 'Please enter a last name')]
     private ?string $lastName = null;
 
-    // #[ORM\Column(length: 100, nullable: true)]
-    // private ?string $avatar = null;
-    /**
-     * 
-     * 
-     * @Vich\UploadableField(mapping="avatars", fileNameProperty="avatar")
-     *
-     * @var File|null
-     */
-    private ?File $avatarFile;
-
-    /**
-     * @ORM\Column(length: 100, nullable: true)
-     */
-    private ?string $avatar = "";
-
-    // ...
-
-    public function getAvatarFile(): ?File
-    {
-        return $this->avatarFile;
-    }
-
-    public function setAvatarFile(?File $file): self
-    {
-        $this->avatarFile = $file;
-
-    }
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $avatar = null;
 
 
     public function getAvatar(): ?string
