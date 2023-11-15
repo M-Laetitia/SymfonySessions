@@ -31,7 +31,7 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
-    $user = new User();
+
     $form = $this->createForm(AvatarType::class, $user);
     $form->handleRequest($request);
 
