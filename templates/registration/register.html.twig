@@ -3,24 +3,86 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
 
-    <h1>Register</h1>
 
-    {{ form_start(registrationForm) }}
+<div class="main-content-page student-new-page">
 
-        {{ form_errors(registrationForm) }}
+
+    <div id="title-add">
+        <h1>Register</h1>
+    </div>
+
+    <div id="form-student">
+        <div id="header-top"></div>
         
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.firstName) }}
-        {{ form_row(registrationForm.lastName) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+            {% for flash_error in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+            {% endfor %}
+        
+            
+        
+            {{ form_start(registrationForm) }}
+                {{ form_errors(registrationForm) }}
+                <div id="name-student-form">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <p>CREATE AN ACCOUNT :</p>
+                    <div class="last-first-name"></div>
+                </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                <div id="back-left"></div>
+                <div id="back-right-register"></div>
+            
+                <div id="inputs-form-student">
+
+                    <div>
+                        <div>
+                            {{ form_row(registrationForm.firstName) }}
+                        </div>
+                        <div>
+                            {{ form_row(registrationForm.lastName) }}
+                        </div>
+                    </div>
+
+                    <div>
+                        {{ form_row(registrationForm.email) }}
+                    </div>
+
+                    <div>
+                        <div>
+                            {{ form_row(registrationForm.plainPassword, {
+                                label: 'Password'
+                            }) }}
+                        </div>
+                       
+                    </div>
+
+                    <div id="checkbox-terms">
+                        {{ form_row(registrationForm.agreeTerms) }}
+                    </div>
+            
+                </div>
+{# 
+                <div id="submit-btn-form">
+                    <button type="submit" class="btn">Register</button>
+                </div> #}
+
+                <div id="submit-btn-form">
+                    {{ form_row(registrationForm.Register) }}
+                </div>
+
+
+            {{ form_end(registrationForm) }}
+        </div>
+
+    </div>
+
+
+    <script>
+        //^ chance color label when clicked ---------------------
+
+  
+        
+    </script>
+
+</div>
 {% endblock %}
