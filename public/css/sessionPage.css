@@ -2,6 +2,15 @@
 /*~ SESSION PAGE                       */
 /*~ ---------------------------------- */
 /*& INDEX----------------------------- */
+#currentUpBtn,
+#upcomingUpBtn {
+  cursor: pointer;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
 .session-index-page h1 {
   color: var(--highlight--02);
 }
@@ -121,6 +130,195 @@
 
 #past-session-list div h3 a {
   color: var(--main-color);
+}
+
+/*& ADD - EDIT ------------------------- */
+.session-new-page .last-first-name input {
+  width: 26rem !important;
+}
+
+.session-new-page #title-add {
+  color: var(--highlight--05);
+}
+
+.session-new-page #name-student-form {
+  padding: 0.6rem;
+}
+
+/*& DETAIL ------------------------- */
+.module-areas {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  grid-template: "detail ." "student module" "add-s add-m";
+  margin: 3rem 3rem;
+  column-gap: 5rem;
+  row-gap: 2rem;
+}
+
+.module-area {
+  background-color: white;
+  border-bottom: 3px solid var(--highlight--04);
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+.module-area .top {
+  width: 100%;
+  background: var(--gradient-color-02);
+  height: 3rem;
+}
+
+.detail-session {
+  grid-area: detail;
+}
+.detail-session .top {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  column-gap: 1rem;
+}
+.detail-session .top a {
+  color: white;
+  font-size: 1.3rem;
+}
+.detail-session .content {
+  padding: 1.5rem;
+}
+.detail-session .content p {
+  line-height: 2.3rem;
+}
+.detail-session .content p span {
+  color: #fe7ea5;
+  font-weight: 700;
+}
+
+.module-session {
+  grid-area: module;
+  color: white;
+}
+.module-session .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem 1.2rem;
+}
+.module-session .content {
+  color: var(--black-color);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.module-session div {
+  display: flex;
+  justify-content: space-between;
+}
+.module-session a {
+  color: var(--black-color);
+}
+.module-session i {
+  color: #fe7ea5;
+}
+.module-session .add-el {
+  background: var(--gradient-color-02);
+  width: 12rem;
+  height: 2.8rem;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  translate: -46px -15px;
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
+}
+
+.student-session {
+  grid-area: student;
+  color: white;
+}
+.student-session .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem 1.2rem;
+}
+.student-session .content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.student-session .content div {
+  display: flex;
+  justify-content: space-between;
+}
+.student-session .content a {
+  color: var(--black-color);
+}
+.student-session .content i {
+  color: #fe7ea5;
+}
+.student-session .add-el {
+  background: var(--gradient-color-02);
+  width: 12rem;
+  height: 2.8rem;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  translate: 350px 27px;
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
+}
+
+.add-el:hover {
+  background: var(--gradient-color-01);
+}
+
+.add-student {
+  grid-area: add-s;
+}
+.add-student .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem 1.2rem;
+  color: white;
+}
+.add-student .content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.add-student div {
+  display: flex;
+  justify-content: space-between;
+}
+.add-student a {
+  color: var(--black-color);
+}
+.add-student i {
+  color: #fe7ea5;
+}
+
+.add-module {
+  grid-area: add-m;
+}
+.add-module .content {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+.add-module .content form {
+  display: flex;
+  row-gap: 1rem;
+  flex-direction: column;
 }
 
 /*# sourceMappingURL=sessionPage.css.map */

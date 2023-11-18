@@ -281,6 +281,10 @@ nav #user-panel{
     transition: background-color 0.3s ease-in-out;
 }
 
+.activemenu {
+    background-color: var(--highlight--01) !important;
+}
+
 @media screen and (max-width: 767px) {
     nav {
         width: 5rem;
