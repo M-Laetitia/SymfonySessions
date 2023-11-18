@@ -26,7 +26,7 @@ class SessionType extends AbstractType
 
             ->add('formation', EntityType::class, [
                 'class' => Formation::class,
-                // 'choice_label' => 'name',
+                'attr' => ['class' => 'custom-dropdown'],
             ])
 
             ->add('name', TextType::class)
@@ -36,18 +36,23 @@ class SessionType extends AbstractType
             ->add('endDate' , DateType::class, [
                 'widget' => 'single_text',
             ])
-            ->add('nbPlaceTotal' , IntegerType::class)
-
+            ->add('nbPlaceTotal' , IntegerType::class, [
+                'label' => 'Number of places',
+            ])
 
          
             ->add('user', EntityType::class, [
                 'class' => User::class,
-                // 'choice_label' => 'title',
+                'label' => 'Main teacher',
             ])
 
             
 
-            ->add('Validate', SubmitType::class)
+            ->add('Validate', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn-submit'
+                ]
+            ])
         ;
     }
 
