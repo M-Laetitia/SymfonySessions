@@ -289,6 +289,49 @@ nav #user-panel{
     background-color: var(--highlight--01) !important;
 }
 
+/*? user ----------------------------- */
+
+#user-panel {
+        display: flex;
+        justify-content: center;
+    .detail {
+        // background-color: red;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        div {
+            background-color: red;
+            width: 6rem;
+            height: 6rem;
+            margin-bottom: 1rem;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        #pseudo {
+            transition: ease-in-out 0.2s;
+            &:hover {
+                color: var(--highlight--01); 
+            }
+        }
+
+        #logout {
+            transition: ease-in-out 0.2s;
+            &:hover {
+                color: var(--highlight--03); 
+            }
+        }
+
+        .ri-logout-circle-r-line {
+            color: var(--highlight--03); 
+        }
+    }
+
+
+}
+
+
 @media screen and (max-width: 767px) {
     nav {
         width: 5rem;
@@ -313,15 +356,84 @@ nav #user-panel{
 
 /*? Show ----------------------------- */
 
-#avatar-profil {
-    width: 150px;
-    height: 150px;
-}
 
-#avatar-profil img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+.user-detail-page {
+
+    h1{
+        color: var(--highlight--05);
+    }
+
+    #inputs-form-student {
+        line-height: 1.6rem;
+
+        span {
+            color: var(--highlight--01);
+            font-weight: 700;
+        }
+    }
+
+    #avatar {
+        // background-color: red;
+        padding: 1.3rem 0 1.3rem 1.3rem;
+        display: flex;
+        align-items: center;
+
+        #avatar-profil {
+            width: 7rem;
+            height: 7rem;
+            border-radius: 1rem;
+            overflow: hidden;
+
+            img {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+            
+        }
+
+        #form {
+            padding-left: 2rem;
+
+            form {
+            //    background-color: red;
+               line-height: 2rem;
+
+                div:nth-child(1){
+                    // background-color: red;
+
+                    label {
+                        color: var(--highlight--01);
+                    }
+                }
+
+                div:nth-child(2){
+                    // background-color: red;
+
+                    button {
+                        background: var(--gradient-color-02);
+                        border: none;
+                        color: white;
+                        padding: 0rem 1.3rem;
+                        border-radius: 0.6rem;
+                        cursor: pointer;
+                        margin-bottom: 1.5rem;
+                        margin-top: 1rem;
+                        box-shadow: rgba(148, 36, 36, 0.24) 0px 3px 3px;
+                        transition: ease-in-out 0.15s;
+
+                        &:hover {
+                            background: var(--gradient-color-01) !important;
+      
+                        }
+                    
+                    }
+                }
+            }
+        }
+
+        
+    }
 }
 
 
@@ -527,9 +639,7 @@ main {
     border: 1px solid black;
 
     .header  {
-        background:  var(--gradient-color-02);
-        width: 100%;
-        height: 5rem;
+        
     }
 
     .student {
