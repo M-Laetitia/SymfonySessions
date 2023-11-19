@@ -45,7 +45,7 @@ class Session
         expression: 'this.getStartDate() != null',
         constraints: [
             new Assert\GreaterThan(
-                propertyPath: 'dateStart',
+                propertyPath: 'startDate',
                 message: 'The selected start date must be earlier than the end date.'
             )
         ]
