@@ -1,35 +1,78 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une session{% endblock %}
+{% block title %}Add/edit a Session{% endblock %}
 
 {% block body %}
 
-
+<div class="main-content-page session-new-page">
 
     {# {{ form(formAddEmploye) }} #}
+    <div id="title-add">
 
-    {% if edit %}
-    <h1>Editer une session</h1>
-    {% else %}
-    <h1>Ajouter une session</h1>
-    {% endif %}
+        {% if edit %}
+        <h1>Edit a session</h1>
+        {% else %}
+        <h1>Add a session</h1>
+        {% endif %}
 
 
-    {{ form_start(formAddSession) }}
-        {{ form_errors(formAddSession) }}
-        
-
-        <div>{{ form_row(formAddSession.formation) }}</div>
-        <div {{ form_row(formAddSession.name) }}</div>
-        <div {{ form_row(formAddSession.nbPlaceTotal) }}</div>
-        <div {{ form_row(formAddSession.startDate) }}</div>
-        <div {{ form_row(formAddSession.endDate) }}</div></div>
-        <div {{ form_row(formAddSession.user) }}</div>
-
+    </div>
     
-        {{ form_row(formAddSession.Validate) }}
+    <div id="form-student">
 
-    {{ form_end(formAddSession) }}
+        <div id="header-top"></div>
+
+        {{ form_start(formAddSession) }}
+            {{ form_errors(formAddSession) }}
+
+            <div id="name-student-form">
+                <i class="ri-calendar-2-line"></i>
+                <p>NAME :</p>
+                <div class="last-first-name">{{ form_row(formAddSession.name) }}</div>
+            </div>
+
+            <div id="back-left"></div>
+            <div id="back-right"></div>
+
+            <div id="inputs-form-student">
+
+                <div>
+                    <div>
+                        {{ form_row(formAddSession.formation) }}
+                    </div>
+                    <div>
+                        {{ form_row(formAddSession.nbPlaceTotal) }}
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        {{ form_row(formAddSession.startDate) }}
+                    </div>
+                    <div>
+                        {{ form_row(formAddSession.endDate) }}
+                    </div>
+                </div>
+
+                {{ form_row(formAddSession.user) }}
+
+            </div>
+   
+            <div id="submit-btn-form">
+                {{ form_row(formAddSession.Validate) }}
+            </div>
+        
+            
+        
+        {{ form_end(formAddSession) }}
+
+
+    </div>
+    
+
+
+</div>
+
 
 {% endblock %}
 
