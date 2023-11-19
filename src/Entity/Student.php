@@ -137,6 +137,25 @@ class Student
         return $this;
     }
 
+    public function getFormattedPhoneNumber(): ?string
+    {
+        $phoneNumber = $this->phoneNumber;
+
+        // Vérifier si le numéro de téléphone est vide
+        if (empty($phoneNumber)) {
+            return null;
+        }
+
+        // Supprimer les caractères non numériques
+        $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
+
+        // Formater le numéro de téléphone
+        $formattedPhoneNumber = vsprintf('%s.%s.%s.%s.%s', str_split($phoneNumber, 2));
+
+        return $formattedPhoneNumber;
+    }
+
+
     public function getCity(): ?string
     {
         return $this->city;
