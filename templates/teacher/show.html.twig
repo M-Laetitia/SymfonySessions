@@ -4,52 +4,97 @@
 
 {% block body %}
 
-    <h1>Détail d'un formateur</h1>
+<div class="main-content-page student-index-page">
 
-    <h2> {{ user }}</h2>
+    <div id="title-add">
+        <h1>Détail d'un formateur</h1>
+    </div>
 
-    <p>
-        Nom : {{ user}} <br> 
-      
-        <a href="{{ path('edit_teacher', {'id': user.id }) }}">EDITER </a>
-        <a href="{{ path('delete_teacher', {'id': user.id }) }}">SUPPRIMER(ok) </a>
-        
-    </p>
+    <div id="top">
+        <p>{{ user}}</p>
 
-
-    {% if user.sessions | length > 0 %}
-        {% set currentDate = date('now') %}
-        {% set hasOngoingSession = false %}
-        {% set hasFutureSession = false %}
-
-
-        {% for session in user.sessions %}
-            {% if session.startDate <= currentDate and currentDate <= session.endDate %}
-                {% set hasOngoingSession = true %}
-                <h3>Formation en cours :</h3>
-                <a href="{{ path('show_session', {'id': session.id }) }}">{{ session.formation.name }}</a>
-                {{ session.formation.name }} du {{ session.startDate|date("d.m.Y") }} au {{ session.endDate|date("d.m.Y") }} <br>
-            {% elseif session.startDate > currentDate %}
-                {% set hasFutureSession = true %}
-                <h3>Formations à venir :</h3>
-                <a href="{{ path('show_session', {'id': session.id }) }}">{{ session.formation.name }}</a>
-                 du {{ session.startDate|date("d.m.Y") }} au {{ session.endDate|date("d.m.Y") }} <br>
+        <p>
+            
+            {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('edit_teacher', {'id': user.id }) }}"><i class="ri-file-edit-fill"></i></a>
+            <a href="{{ path('delete_teacher', {'id': user.id }) }}"><i class="ri-close-circle-fill"></i></a>
+                
             {% endif %}
-        {% endfor %}
+          
+            
+        </p>
 
-        {% if not hasOngoingSession %}
-            <h3>Formation en cours :</h3>
-            <p>Pas de formations en cours.</p>
-        {% endif %}
 
-        {% if not hasFutureSession %}
-            <h3>Formations à venir :</h3>
-            <p>Pas de formations à venir.</p>
-        {% endif %}
+    </div>
 
-    {% else %}
-        <p>Aucune session.</p>
-    {% endif %}
+    <div class="module-areas">
+
+
+        <div class="module-area student-session ">
+            <div class="top">
+                <p>Student session/s list</p>
+            </div>
+    
+            <div class="content">
+               <div class="current">
+                    <p>Current session :</p>
+    
+                        {% if currentSessions | length > 0 %}
+                            {% for session in currentSessions  %}
+                                <div>
+                                    <p>•<a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a></p>
+                                    <p>{{session.startDate|date("d.m.Y")}} - {{session.endDate|date("d.m.Y")}}</p>
+                                    
+                                </div>
+                            {% endfor %}   
+                        {% else %}
+                            <p>No current session.</p>
+                        {% endif %}
+               </div>
+    
+               <div class="upcoming">
+                    <p>Upcoming session/s :</p>
+    
+                    {% if upcomingSessions | length > 0 %}
+                        {% for session in upcomingSessions  %}
+                            <div>
+                                <p>•<a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a></p>
+                                <p>{{session.startDate|date("d.m.Y")}} - {{session.endDate|date("d.m.Y")}}</p>
+                                
+                            </div>
+                        {% endfor %}   
+                    {% else %}
+                        <p class="text">No upcoming session.</p>
+                    {% endif %}
+               </div>
+    
+               <div class="past">
+                    <p>Past session/s : </p>
+    
+                    {% if pastSessions | length > 0 %}
+                        {% for session in pastSessions  %}
+                            <div>
+                                <p>•<a href="{{ path('show_session', {'id': session.id }) }}"> {{session}}</a></p>
+                                <p>{{session.startDate|date("d.m.Y")}} - {{session.endDate|date("d.m.Y")}}</p>
+                                
+                            </div>
+                        {% endfor %}   
+                    {% else %}
+                        <p class="text">No past session.</p>
+                    {% endif %}
+    
+               </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+    
+    
+</div>
+
 
 
 {% endblock %}
