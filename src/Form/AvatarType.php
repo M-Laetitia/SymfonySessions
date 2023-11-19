@@ -18,7 +18,7 @@ class AvatarType extends AbstractType
         $builder
             ->add('avatar',FileType::class, [
                 'required' => false,
-                'label' => 'profil picture',
+                'label' => 'Profile picture :',
                 'data_class' => null,
 
                 // make it optional so you don't have to re-upload the PDF file
@@ -41,7 +41,7 @@ class AvatarType extends AbstractType
 
             ])
             
-            ->add('Enregistrer', SubmitType::class);
+            ->add('Save', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
