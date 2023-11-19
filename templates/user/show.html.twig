@@ -4,24 +4,66 @@
 
 {% block body %}
 
-    <h1>Profile</h1>
-    {{ user}}
+    <div class="main-content-page user-detail-page">
 
-    <div id="avatar-profil">
-        <img src="{{ asset('images/avatars/' ~ user.avatar) }}">
-    </div>
+        <div id="title-add">
+            <h1>Profil Page</h1>
+        </div>
+
+        <div id="form-student">
+            <div id="header-top"></div>
+
+            <div id="name-student-form">
+                <i class="fa-solid fa-user-plus"></i>
+                <p>{{ user }}</p>
+                <div></div>
+            </div>
+
+            <div id="back-left"></div>
+            <div id="back-right"></div>
+
+            <div id="inputs-form-student">
+                <p><span>Email:</span> {{ user.email }} </p>
+                <p><span>Role/s: </span>{{user.simpleRoles|join(', ')}}</p>
+                {# {{user.roles|join(', ')}} #}
+
+                {% if 'ROLE_TEACHER' in app.user.roles %}
+                
+                <a href="{{ path('show_teacher', {'id': app.user.id }) }}"><p><span>See sessions </span> <i class="ri-arrow-right-circle-fill"></i></p></a>
+                {% else %}
+                <p></p>
+                {% endif %}
+
+
+                
+            </div>
+
+            <div id="avatar">
+                <div id="avatar-profil">
+                    {% if user.avatar %}
+                        <img src="{{ asset('images/avatars/' ~ user.avatar) }}">
+                    {% else %}
+                        <img src="{{ asset('images/default_profile.jpg') }}">
+                    {% endif %}
+                </div>
+                
+                <div id="form">
+                    {{ form_start(form) }}
+                    {{ form_row(form.avatar) }} 
+                    {{ form_end(form) }}
+                </div>
+            </div>
+           
+        </div>
+
+
+
+
     
-   
 
-    <div>
-        {{ form_start(form) }}
-        {{ form_row(form.avatar) }} 
-        {{ form_end(form) }}
     </div>
 
 
-
-    
 
 {% endblock %}
 
