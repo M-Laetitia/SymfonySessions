@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
-use App\Service\ValidationService;
 use App\Entity\User;
 use App\Form\TeacherType;
 use App\Repository\UserRepository;
+use App\Service\ValidationService;
+use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -77,17 +79,25 @@ class TeacherController extends AbstractController
 
     
     #[Route('/teacher/{id}', name: 'show_teacher')]
-    public function show(User $user = null): Response {
+    public function show(Request $request, SessionRepository $sessionRepository, User $user ): Response {
 
+   
 
         if (!$user) {
             // L'entité User avec cet ID n'existe pas, redirigez vers la page d'accueil ou une autre page.
             return $this->redirectToRoute('app_home');
         }
 
+        $currentSessions = $sessionRepository->findCurrentSessionsUser($user);
+        $upcomingSessions = $sessionRepository->findUpcomingSessionsUser($user);
+        $pastSessions = $sessionRepository->findPastSessionsUser($user);
+
 
         return $this->render('teacher/show.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'currentSessions' => $currentSessions,
+            'upcomingSessions' => $upcomingSessions,
+            'pastSessions' => $pastSessions,
         ]);
     }
 }
