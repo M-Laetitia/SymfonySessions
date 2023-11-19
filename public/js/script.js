@@ -156,3 +156,24 @@
             $('#upcoming-session-list').slideToggle();
         });
     });
+
+
+    
+    //^ Show/hide add module/student (list)---------------------
+
+    $(document).ready(function () {
+        $('#add-student-btn').click(function () {
+            console.log("ok")
+                $('.add-student').slideToggle();
+            },
+            
+        );
+
+        $('#add-module-btn').click(function () {
+            console.log("ok")
+                $('.add-module').slideToggle();
+            },
+            
+        );
+
+    });
