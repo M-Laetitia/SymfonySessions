@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
-use App\Service\ValidationService;
+use Knp\Snappy\Pdf;
 use App\Entity\Session;
 use App\Entity\Student;
 use App\Form\StudentType;
+use App\Service\ValidationService;
+use App\Repository\SessionRepository;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,15 +71,51 @@ class StudentController extends AbstractController
     
     // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
      #[Route('/student/{id}', name: 'show_student')]
-     public function show(Student $student = null): Response
+     public function show(SessionRepository $sessionRepository, Student $student = null): Response
     {
+
+        $currentSessions = $sessionRepository->findCurrentSessions($student, null);
+        $upcomingSessions = $sessionRepository->findUpcomingSessions($student, null);
+        $pastSessions = $sessionRepository->findPastSessions($student, null);
+
+        // dump($currentSessions, $upcomingSessions, $pastSessions);die;
         if (!$student) {
             // L'entité Student avec cet ID n'existe pas, redirigez vers la page d'accueil ou une autre page.
             return $this->redirectToRoute('app_home');
         }
 
         return $this->render('student/show.html.twig', [
-            'student' => $student
+            'student' => $student,
+            'currentSessions' => $currentSessions,
+            'upcomingSessions' => $upcomingSessions,
+            'pastSessions' => $pastSessions,
         ]);
     }
+
+
+    /**
+     * Export to PDF
+     *
+     * @Route("/pdf", name="acme_demo_pdf")
+     */
+    public function pdfAction(Pdf $pdf): Response
+    {
+        $html = $this->renderView('student/show.html.twig');
+
+        $filename = sprintf('test-%s.pdf', date('Y-m-d'));
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+            ]
+        );
+    }
 }
+
+
+
+
+
