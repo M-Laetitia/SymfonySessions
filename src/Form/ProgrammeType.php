@@ -41,7 +41,11 @@ class ProgrammeType extends AbstractType
             'choices' => $options['modules'],  
         ])
 
-        ->add('Validate', SubmitType::class);
+        ->add('Validate', SubmitType::class, [
+            'attr' => [
+                'class' => 'btn-submit'
+            ]
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
