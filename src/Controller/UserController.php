@@ -61,7 +61,7 @@ class UserController extends AbstractController
                 // updates the 'avatarFilename' property to store the PDF file name
                 // instead of its contents
                 $user->setAvatar($newFilename);
-                // $entityManager->flush();
+                $entityManager->flush();
             }
 
             // ... persist the $product variable or any other work
