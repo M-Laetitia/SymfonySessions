@@ -17,13 +17,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+// Include paginator interface
+use Knp\Component\Pager\PaginatorInterface;
  
  
 class SessionController extends AbstractController
 {
  
+
+
+
+
     #[Route('/session', name: 'app_session')]
-    public function index(SessionRepository $sessionRepository): Response
+    public function index(SessionRepository $sessionRepository,Request $request, PaginatorInterface $paginator): Response
     {
         $sessions = $sessionRepository->findBy([], ["endDate" => "ASC"]);
 
@@ -31,6 +38,23 @@ class SessionController extends AbstractController
         $upcomingSessions = $sessionRepository->findUpcomingSessions();
         $pastSessions = $sessionRepository->findPastSessions();
         // dd($pastSessions);
+        
+
+        // Vérifier si la demande est une requête AJAX
+        if ($request->isXmlHttpRequest()) {
+            // Si oui, renvoyer uniquement les futures sessions en format JSON
+            $pastSessionsData = [];
+            foreach ($pastSessions as $session) {
+                $pastSessionsData[] = [
+                    'id' => $session->getId(),
+                    // 'nom' => $session->getNom(),
+                    
+                ];
+            }
+
+            return new JsonResponse($pastSessionsData);
+        }
+
 
         return $this->render('session/index.html.twig', [
             // 'controller_name' => 'SessionController',
