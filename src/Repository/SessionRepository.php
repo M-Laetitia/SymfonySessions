@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Session;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Student;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Session>
@@ -76,42 +79,62 @@ class SessionRepository extends ServiceEntityRepository
 
 
     // ^ find current sessions
-    public function findCurrentSessions() {
+    public function findCurrentSessions(?Student $student = null) {
         $em = $this->getEntityManager();
-        $sub = $em->createQueryBuilder();
+        $qb = $em->createQueryBuilder();
 
-        $qb = $sub;
-    
+        
         $now = new \DateTime();
         $qb ->select('s')
             ->from('App\Entity\Session', 's')
+            ->leftJoin('s.students', 'st')
             ->where('s.startDate < :val')
             ->andWhere('s.endDate > :val')
-            ->setParameter('val', $now)
-            ->orderBy('s.startDate');
+            ->setParameter('val', $now);
 
-        $query = $sub->getQuery();
+        // Ajouter la condition pour filtrer par étudiant, si un étudiant est fourni
+        if ($student !== null) {
+            $qb->andWhere('st.id = :studentId')
+               ->setParameter('studentId', $student->getId());
+        }
+
+
+
+        $qb->orderBy('s.startDate');
+
+        $query = $qb->getQuery();
         return $query->getResult();
     }
 
+
+
     // ^ find upcoming sessions
-    public function findUpcomingSessions() {
+    public function findUpcomingSessions(?Student $student = null)  {
         $em = $this->getEntityManager();
         $qb= $em->createQueryBuilder();
 
         $now = new \DateTime();
         $qb ->select('s')
             ->from('App\Entity\Session', 's')
+            ->leftJoin('s.students', 'st')
             ->where('s.startDate >= :val')
-            ->setParameter('val', $now)
-            ->orderBy('s.startDate');
+            ->setParameter('val', $now);
+
+        // Ajouter la condition pour filtrer par étudiant, si un étudiant est fourni
+        if ($student !== null) {
+            $qb->andWhere('st.id = :studentId')
+               ->setParameter('studentId', $student->getId());
+        }
+
+    
+        $qb->orderBy('s.startDate');
 
         $query = $qb->getQuery();
         return $query->getResult();
     }
 
     // ^ find past sessions
-    public function findPastSessions() {
+    public function findPastSessions(?Student $student = null)  {
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
 
@@ -119,14 +142,122 @@ class SessionRepository extends ServiceEntityRepository
         $now = new \DateTime();
         $qb ->select('s')
             ->from('App\Entity\Session', 's')
+            ->leftJoin('s.students', 'st')
             ->where('s.endDate < :val')
-            ->setParameter('val', $now)
-            ->orderBy('s.startDate');
+            ->setParameter('val', $now);
+
+         // Ajouter la condition pour filtrer par étudiant, si un étudiant est fourni
+         if ($student !== null) {
+            $qb->andWhere('st.id = :studentId')
+               ->setParameter('studentId', $student->getId());
+        }
+
+        $qb->orderBy('s.startDate');
 
         $query = $qb->getQuery();
-
         return $query->getResult();
         
+    }
+
+
+
+    // ----------------------
+
+
+    // ^ find current sessions
+    public function findCurrentSessionsUser(?User $user = null) {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        
+        $now = new \DateTime();
+        $qb ->select('s')
+            ->from('App\Entity\Session', 's')
+            ->leftJoin('s.students', 'st')
+            ->where('s.startDate < :val')
+            ->andWhere('s.endDate > :val')
+            ->setParameter('val', $now);
+
+    
+        if ($user !== null) {
+            $qb->andWhere('s.id = :userId')
+               ->setParameter('userId', $user->getId());
+        }
+
+        $qb->orderBy('s.startDate');
+
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
+
+
+    // ^ find upcoming sessions
+    public function findUpcomingSessionsUser(?User $user = null)  {
+        $em = $this->getEntityManager();
+        $qb= $em->createQueryBuilder();
+
+        $now = new \DateTime();
+        $qb ->select('s')
+            ->from('App\Entity\Session', 's')
+            ->leftJoin('s.students', 'st')
+            ->where('s.startDate >= :val')
+            ->setParameter('val', $now);
+
+    
+
+        if ($user !== null) {
+            $qb->andWhere('s.id = :userId')
+               ->setParameter('userId', $user->getId());
+        }
+
+        $qb->orderBy('s.startDate');
+
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
+    // ^ find past sessions
+    public function findPastSessionsUser(?User $user = null)  {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+    
+        $now = new \DateTime();
+        $qb ->select('s')
+            ->from('App\Entity\Session', 's')
+            ->leftJoin('s.students', 'st')
+            ->where('s.endDate < :val')
+            ->setParameter('val', $now);
+
+        if ($user !== null) {
+            $qb->andWhere('s.id = :userId')
+                ->setParameter('userId', $user->getId());
+        }
+
+        $qb->orderBy('s.startDate');
+
+        $query = $qb->getQuery();
+        return $query->getResult();
+        
+    }
+
+
+
+    // ----------------
+
+
+    public function findForPagination(?Session $session = null ): Query {
+        $qb = $this->createQueryBuilder('a')
+            ->orderBy('a.starDate', 'DESC');
+
+            if ($session) {
+                $db->leftJoin ('a.session', 's')
+                ->where($qb->expr()->eq('s.id', ':sessionId'))
+                ->setParameter('sessionId', $session->getId());
+            }
+
+            return $qb->getQuery();
     }
 
     
@@ -165,4 +296,6 @@ class SessionRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    
 }
