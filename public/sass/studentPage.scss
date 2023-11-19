@@ -305,3 +305,88 @@ $width-form: 35rem;
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     
 }
+
+
+/*& DETAIL ----------------------------- */
+
+.student-index-page .module-areas {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    grid-template:
+        "detail "
+        "student ";
+    margin: 3rem 3rem;
+    column-gap: 5rem;
+    row-gap: 2rem;
+
+    .detail-session {
+        // background-color: red;
+        width: 50%;
+    }
+
+    .student-session {
+
+        // .top {
+        //     color: white;
+        // }
+        .content-s {
+            
+            padding: 1.5rem;
+            
+        }
+
+        .current {
+            display: inline;
+            color: var(--highlight--05);
+            font-weight: 600;
+
+            div {
+                // background-color: red;
+                border-bottom: 1px solid #fe7ea6;
+                margin: 1rem 5rem 1rem 3rem;
+                padding-bottom: 1rem;
+            }
+        }
+
+        .upcoming {
+            display: inline;
+            color: var(--highlight--05);
+            font-weight: 600;
+
+            div {
+                // background-color: red;
+                border-bottom: 1px solid #fe7ea6;
+                margin: 1rem 5rem 1rem 3rem;
+                padding-bottom: 1rem;
+            }
+
+            .text {
+                color: var(--black-color);
+                margin: 1rem 5rem 1rem 3rem;
+                padding-bottom: 1rem;
+            }
+        }
+
+        .past {
+            display: inline;
+            color: var(--highlight--05);
+            font-weight: 600;
+
+            div {
+                // background-color: red;
+                border-bottom: 1px solid #fe7ea6;
+                margin: 1rem 5rem 1rem 3rem;
+                padding-bottom: 1rem;
+            }
+
+            .text {
+                color: var(--black-color);
+                margin: 1rem 5rem 1rem 3rem;
+                padding-bottom: 1rem;
+            }
+        }
+
+       
+    }
+}

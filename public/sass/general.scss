@@ -51,6 +51,10 @@
                        #FE8FB5,
                        #FE8F8F);
 
+    --gradient-color-03: linear-gradient(90deg,
+                        #431377,
+                        #33379E);
+
     --first-color:#5858ba;
     --gradient-color: linear-gradient(90deg,
                        hsl(210,62%,25%),
@@ -440,4 +444,97 @@ nav #user-panel{
     border: none;
     background-color: transparent;
     border-bottom: 1px solid var(--highlight--03) !important;
+}
+
+
+/*~ ---------------------------------- */
+/*~ landing Page                       */
+/*~ ---------------------------------- */
+
+main {
+    background: var(--gradient-color-03);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+
+    .content {
+        background-color: var(--light-color);
+        width: 60%;
+        height: 70%;
+        border-radius: 2.6rem;
+        box-shadow: rgb(52 52 155 / 40%) 0px 0px 60px;
+        overflow: hidden;
+        display: flex;
+
+        .left {
+            background: var(--gradient-color-02);
+            height: 100%;
+            width: 65%;
+            box-shadow: 10px 0px 0px 0px rgb(204 204 213);
+        }
+
+        .right {
+            // background-color: red;
+            width: 45%;
+            height: 100%;
+
+            .welcome {
+                background: var(--gradient-color-03);
+                width: 17rem;
+                height: 3rem;
+                margin-top: 1.5rem;
+                border-top-right-radius: 1.5rem;
+                border-bottom-right-radius: 1.5rem;
+                color: white;
+                display: flex;
+                align-items: center;
+                padding-left: 1.2rem;
+                font-size: var(--medium-font-size) ;
+                box-shadow: inset 10px 0em #1b0738;
+            }
+
+
+            .account {
+                // background-color: red;
+                width: 100%;
+                padding: 0 4rem 0 7rem;
+                margin-top: 6rem;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+
+                p:nth-child(1) {
+                    font-size: var(--medium-font-size) ;
+                    margin-bottom: 2.1rem;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+/*~ ---------------------------------- */
+/*~ PDF page                           */
+/*~ ---------------------------------- */
+
+#pdf-content {
+    width: 770px;
+    height: 950px;
+    // background-color: red;
+    border: 1px solid black;
+
+    .header  {
+        background:  var(--gradient-color-02);
+        width: 100%;
+        height: 5rem;
+    }
+
+    .student {
+        // background-color: red;
+        margin-left: 10rem;
+        margin-top: 5rem;
+    }
 }
