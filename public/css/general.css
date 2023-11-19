@@ -249,6 +249,40 @@ nav #user-panel {
   background-color: var(--highlight--01) !important;
 }
 
+/*? user ----------------------------- */
+#user-panel {
+  display: flex;
+  justify-content: center;
+}
+#user-panel .detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#user-panel .detail div {
+  background-color: red;
+  width: 6rem;
+  height: 6rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+#user-panel .detail #pseudo {
+  transition: ease-in-out 0.2s;
+}
+#user-panel .detail #pseudo:hover {
+  color: var(--highlight--01);
+}
+#user-panel .detail #logout {
+  transition: ease-in-out 0.2s;
+}
+#user-panel .detail #logout:hover {
+  color: var(--highlight--03);
+}
+#user-panel .detail .ri-logout-circle-r-line {
+  color: var(--highlight--03);
+}
+
 @media screen and (max-width: 767px) {
   nav {
     width: 5rem;
@@ -262,15 +296,55 @@ nav #user-panel {
 /*~ USER                               */
 /*~ ---------------------------------- */
 /*? Show ----------------------------- */
-#avatar-profil {
-  width: 150px;
-  height: 150px;
+.user-detail-page h1 {
+  color: var(--highlight--05);
 }
-
-#avatar-profil img {
+.user-detail-page #inputs-form-student {
+  line-height: 1.6rem;
+}
+.user-detail-page #inputs-form-student span {
+  color: var(--highlight--01);
+  font-weight: 700;
+}
+.user-detail-page #avatar {
+  padding: 1.3rem 0 1.3rem 1.3rem;
+  display: flex;
+  align-items: center;
+}
+.user-detail-page #avatar #avatar-profil {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.user-detail-page #avatar #avatar-profil img {
   object-fit: cover;
   width: 100%;
   height: 100%;
+}
+.user-detail-page #avatar #form {
+  padding-left: 2rem;
+}
+.user-detail-page #avatar #form form {
+  line-height: 2rem;
+}
+.user-detail-page #avatar #form form div:nth-child(1) label {
+  color: var(--highlight--01);
+}
+.user-detail-page #avatar #form form div:nth-child(2) button {
+  background: var(--gradient-color-02);
+  border: none;
+  color: white;
+  padding: 0rem 1.3rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  box-shadow: rgba(148, 36, 36, 0.24) 0px 3px 3px;
+  transition: ease-in-out 0.15s;
+}
+.user-detail-page #avatar #form form div:nth-child(2) button:hover {
+  background: var(--gradient-color-01) !important;
 }
 
 /*? Register ----------------------------- */
@@ -429,11 +503,6 @@ main .content .right .account p:nth-child(1) {
   width: 770px;
   height: 950px;
   border: 1px solid black;
-}
-#pdf-content .header {
-  background: var(--gradient-color-02);
-  width: 100%;
-  height: 5rem;
 }
 #pdf-content .student {
   margin-left: 10rem;
