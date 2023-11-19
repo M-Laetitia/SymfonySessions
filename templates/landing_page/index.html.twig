@@ -1,0 +1,61 @@
+<html>
+    {# http://127.0.0.1:8000/landing/page #}
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+    
+        
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    
+        {# Google fonts #}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+        {# Font awesome #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+        {# Remix Icon #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" integrity="sha512-HXXR0l2yMwHDrDyxJbrMD9eLvPe3z3qL3PPeozNTsiHJEENxx8DH2CxmV05iwG0dwoz5n4gQZQyYLUNt1Wdgfg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+       
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{asset('css/studentPage.css')}}">
+            <link rel="stylesheet" href="{{asset('css/sessionPage.css')}}">
+            <link rel="stylesheet" href="{{asset('css/teacherPage.css')}}">
+    
+            <link rel="stylesheet" href="{{asset('css/general.css')}}">
+        {% endblock %}
+    
+        {% block javascripts %}
+        {% endblock %}
+    </head>
+    
+    
+    
+    <main>
+       <div class="content">
+            <div class="left">
+                <img src="" alt="">
+                <p></p>
+            </div>
+
+            <div class="right">
+                <div class="welcome">
+                    <p>Welcome back</p>
+                </div>
+
+                <div class="account">
+                    <p>Login your account</p>
+                    <p>Email</p>
+                    <p>Password</p>
+                    <button>Login</button>
+                    <p>Create account</p>
+                </div>
+            </div>
+       </div>
+    </main>
+
+</html>
+
+
