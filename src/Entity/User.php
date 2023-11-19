@@ -133,6 +133,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getSimpleRoles(): array
+    {
+        // fonction utiliser pour filtrer les éléments du tableau. Elle prend deux arguments : le tableau à filtrer ($this->getRoles() dans ce cas) et une fonction de rappel qui définit la condition de filtrage.
+        $filteredRoles = array_filter($this->getRoles(), function ($roles) {
+            // retourne true pour conserver un rôle et false pour l'exclure. Dans ce cas, on exclut le rôle "ROLE_USER".
+            return $roles !== 'ROLE_USER';
+        });
+
+        // applique une fonction donnée à chaque élément d'un tableau et retourne un nouveau tableau avec les résultats.
+        $simpleRoles = array_map(function ($roles) {
+
+            // utilisée pour formater chaque rôle restant. Elle convertit d'abord le rôle en minuscules (strtolower), puis retire le préfixe "ROLE_" et remplace les underscores par des espaces.
+            
+            return strtolower(str_replace(['ROLE_', '_'], ['', ' '], $roles));
+        }, $filteredRoles);
+
+        return $simpleRoles;
+    }
+
+
     /**
      * @see PasswordAuthenticatedUserInterface
      */
