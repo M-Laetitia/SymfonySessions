@@ -27,7 +27,7 @@ class UserController extends AbstractController
     public function show(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager): Response {
     $user = $security->getUser();
 
-    // Si l'utilisateur n'est pas connecté, redirigez-le vers la page d'accueil ou une autre page.
+    // Si l'utilisateur n'est pas connecté, redirection vers la page d'accueil ou une autre page.
     if (!$user instanceof User) {
         return $this->redirectToRoute('app_home');
     }
@@ -43,8 +43,35 @@ class UserController extends AbstractController
  
         // this condition is needed because the 'avatar' field is not required
             // so the image file must be processed only when a file is uploaded
+
             if ($avatarFile) {
-                // $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // Supprimer l'ancienne image si elle existe
+
+                $oldAvatar = $user->getAvatar();
+                if ($oldAvatar) {
+                    $oldAvatarPath = $this->getParameter('avatars_directory').'/'.$oldAvatar;
+                    if (file_exists($oldAvatarPath)) {
+                        // remplacement dans la base de données
+                        $user->setAvatar(null);
+                        $entityManager->persist($user);
+                        $entityManager->flush();
+                    }
+                }
+
+
+                // si on veut aussi supprimer l'image dans le dossier d'image / ne fonctionne pas
+                // $oldAvatar = $user->getAvatar();
+                // if ($oldAvatar) {
+                //     // Construire le chemin complet vers l'ancienne image en concaténant le répertoire de stockage des avatars ('avatars_directory') avec le nom du fichier de l'ancienne image.
+                //     $oldAvatarPath = $this->getParameter('avatars_directory').'/'.$oldAvatar;
+                //      // Vérifier si le fichier de l'ancienne image existe
+                //     if (file_exists($oldAvatarPath)) {
+                //         // Supprimer le fichier de l'ancienne image.  La fonction unlink est utilisée pour supprimer un fichier.
+                //         unlink($oldAvatarPath);
+                //     }
+                // }
+
+
 
                 $newFilename = uniqid().'.'.$avatarFile->guessExtension();
 
