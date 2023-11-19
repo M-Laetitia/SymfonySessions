@@ -4,102 +4,150 @@
 
 {% block body %}
 
-    <h1>Détail session: {{ session}}</h1>
+    <div class="main-content-page session-index-page">
 
-    {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('edit_session', {'id': session.id }) }}">Editer</a>
-        <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
-    {% endif %}
+        <div id="title-add">
+            <h1>Detail session</h1>
+        </div>
 
-    Formation : {{ session.formation}}<br>
-    Dates: du {{session.startDate|date("d.m.Y")}} au {{session.endDate|date("d.m.Y")}} <br>
-    Nombre de place total : {{ session.nbPlaceTotal}} <br>
-    Nombre d'inscrits : {{ session.nbPlacebooked }}<br>
-    Nombre de place restante: {{ session.nbPlaceRemaining }}  <br>
+        <div id="top">
+            <p>{{ session}}</p>
+        </div>
 
+        <div class="module-areas">
+
+            <div class="module-area detail-session ">
+                <div class="top">
+                    
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('edit_session', {'id': session.id }) }}"><i class="ri-file-edit-fill"></i></a>
+                        <a href="{{ path('delete_session', {'id': session.id }) }}"><i class="ri-close-circle-fill"></i></a><br>
+                    {% endif %}
+                </div>
+                <div class="content">
+                    <p> <span>Formation:</span> {{ session.formation}}</p>
+                    <p> <span>Date:</span> {{session.startDate|date("d.m.Y")}} - {{session.endDate|date("d.m.Y")}} </p>
+                    <p> <span>Number of places :</span> {{ session.nbPlaceTotal}}</p>
+                    <p> <span>Number of students registered:</span> {{ session.nbPlacebooked }}</p>
+                    <p> <span>Number of remaining places:</span> {{ session.nbPlaceRemaining }} </p>
+                    <p> <span>Main teacher:</span> <a href="{{ path('show_teacher', {'id': session.user.id}) }}">{{session.user}}</a></p>
+                </div>
+            </div>
+
+     
+
+            <div class="module-area student-session ">
+                <div class="top">
+                    <p>Students registered</p>
+                    <p>Action</p>
+                </div>
+
+                <div class="content">
+                    {% if session.students| length > 0 %}
     
-    Formateur référent: 
-    <a href="{{ path('show_teacher', {'id': session.user.id}) }}">{{session.user}}</a>
+                        {% for student in session.students %}
+
+                        <div>
+                            <a href="{{ path('show_student', {'id': student.id }) }}">• {{student}}</a>
+                            <a href="{{ path('remove_student_from_session', {'session': session.id, 'student': student.id}) }}"><i class="ri-close-circle-line"></i></a>
+
+                        </div>
+                            
+       
+                        {% endfor %}
+                    {% else %}
+                            <p>No students registered.</p>
+                    {% endif %}
+                </div>
+
+                <div class="add-el" id="add-student-btn">
+                    <p>Add a student</p>
+                </div>
 
 
+            </div>
 
-    <h2>Détail des modules</h2>
+            <div class="module-area module-session ">
+                <div class="top">
+                    <p>Module</p>
+                    {# <p>Duration</p> #}
+                    <p>Action</p>
+                </div>
 
-    {% if session.programmes| length > 0 %}
+                <div class="content">
+                    
+                    {% if session.programmes| length > 0 %}
 
-            {% for programme in session.programmes %}
-                {{programme.ModuleFormation.name}} ( {{programme.duration}} jours) 
-                <a href="{{ path('delete_programme', {'id': programme.id}) }}">delete</a>
-                <br>
-            {% endfor %}
-        {% else %}
-            <p>Aucun module .</p>
-        {% endif %}
+                    {% for programme in session.programmes %}
+                    <div>
+                        • {{programme.ModuleFormation.name}} ( {{programme.duration}} days) 
+                        <a href="{{ path('delete_programme', {'id': programme.id}) }}"><i class="ri-close-circle-line"></i></a>
+                    </div>   
+                        {% endfor %}
+                    {% else %}
+                        <p>Aucun module .</p>
+                    {% endif %}
+                </div>
 
-
-    <h2>Détail des stagiaires inscrits</h2>
-
-    {% if session.students| length > 0 %}
-
-        {% for student in session.students %}
-            <a href="{{ path('show_student', {'id': student.id }) }}">{{student}}</a>
-            <a href="{{ path('remove_student_from_session', {'session': session.id, 'student': student.id}) }}">Remove</a>
-             <br>
-             {% endfor %}
-        {% else %}
-            <p>Aucun stagiaires .</p>
-    {% endif %}
-
-
-    <h2>Liste des stagiaires non inscrits</h2>
+                <div class="add-el" id="add-module-btn">
+                    <p>Add a module</p>
+                </div>
+            </div>
 
 
-    {% if session.nbPlaceRemaining <= 0 %}
-        <p>No more availaible places.</p>
-    {% else %}
-        {% for student in noneRegisteredStudents %}
-            <a href="{{ path('show_student', {'id': student.id }) }}">{{ student }}</a>
-            <a href="{{ path('add_student_from_session', {'session': session.id, 'student': student.id}) }}">add</a>
-            <br>
-        {% endfor %}
-    {% endif %}
+            <div class="module-area add-student" style="display:none">
 
-        <h2>Liste des modules non ajoutées</h2>
+                <div class="top">
+                    <p>Students</p>
+                    <p>Action</p>
+                </div>
 
-        {# {% for moduleFormation in noneAddedModules %}
-            <a href="#">{{moduleFormation}}</a>
-            <a href="#">add</a>
-            <br>
-        {% endfor %} #}
+                <div class="content">
+                    {% if session.nbPlaceRemaining <= 0 %}
+                        <p>No more availaible places.</p>
+                    {% else %}
+                        {% for student in noneRegisteredStudents %}
+                        <div>
+                            <a href="{{ path('show_student', {'id': student.id }) }}">{{ student }}</a>
+                            <a href="{{ path('add_student_from_session', {'session': session.id, 'student': student.id}) }}"><i class="ri-add-circle-line"></i></a>
 
+                        </div>
+                           
+                        {% endfor %}
+                    {% endif %}
+                </div>
 
+            </div>
 
-    <h3>Ajouter module</h3>
+            <div class="module-area add-module " style="display:none">
+                <div class="content">
 
-        {{ form_start(formAddProgramme) }}
-            {{ form_errors(formAddProgramme) }}
+                    {{ form_start(formAddProgramme) }}
+                        {{ form_errors(formAddProgramme) }}
+            
+                        {% for module in formAddProgramme.moduleFormation %}
+                          
+                        <p> {{ form_row(module.duration) }}</p>
+                        <p>{{ form_row(module.moduleFormation) }}</p>
 
-            {% for module in formAddProgramme.moduleFormation %}
-                
-           {{ form_row(module.duration) }}
-            {{ form_row(module.moduleFormation) }}
-            {{ form_row(module.Validate) }}
-            {% endfor %}
- 
+                        <div id="submit-btn-form">
+                            {{ form_row(module.Validate) }}
+                        </div>
+                       
+                        {% endfor %}
+                       
+                    {{ form_end(formAddProgramme) }}
+                </div>
+            </div>
 
-        {{ form_end(formAddProgramme) }}
+        </div>
+            
+        <script>
+            
+        </script>
 
-
-
-
-    {# {{ form_start(formAddStudentSession) }}
-        {{ form_errors(formAddStudentSession) }}
-
-        {{ form_row(formAddStudentSession.students) }}
-        {{ form_row(formAddStudentSession.Validate) }}
-
-   {{ form_end(formAddStudentSession) }} #}
-
+        
+    </div>
 
 
 {% endblock %}
