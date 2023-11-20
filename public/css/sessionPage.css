@@ -25,6 +25,10 @@
 #title-add .fa-calendar-plus {
   color: var(--highlight--02);
   font-size: var(--interm-font-size);
+  transition: ease-in-out 0.3s;
+}
+#title-add .fa-calendar-plus:hover {
+  color: var(--highlight--03);
 }
 
 .session-index-page #top {
@@ -75,11 +79,19 @@
 .session-list div .ri-git-repository-commits-fill {
   font-size: var(--medium-font-size);
   color: var(--highlight--03);
+  transition: ease-in-out 0.3s;
+}
+.session-list div .ri-git-repository-commits-fill:hover {
+  color: var(--highlight--02);
 }
 
 .session-list div h3 a {
   font-size: var(--normal-font-size);
   color: var(--highlight--02);
+  transition: ease-in-out 0.3s;
+}
+.session-list div h3 a:hover {
+  color: var(--highlight--03);
 }
 
 #upcoming-session-top {
@@ -88,10 +100,18 @@
 
 #upcoming-session-list div h3 a {
   color: var(--highlight--03);
+  transition: ease-in-out 0.3s;
+}
+#upcoming-session-list div h3 a:hover {
+  color: var(--highlight--02);
 }
 
 #upcoming-session-list div .ri-git-repository-commits-fill {
   color: var(--highlight--02);
+  transition: ease-in-out 0.3s;
+}
+#upcoming-session-list div .ri-git-repository-commits-fill:hover {
+  color: var(--highlight--03);
 }
 
 #upcoming-session-list div {
@@ -130,8 +150,29 @@
 
 #past-session-list div h3 a {
   color: var(--main-color);
+  transition: ease-in-out 0.3s;
+}
+#past-session-list div h3 a:hover {
+  color: var(--highlight--02);
 }
 
+@media screen and (max-width: 767px) {
+  .session-index-page #top {
+    display: grid;
+    grid-template-columns: 42% 16% 16% 14% 12%;
+  }
+  #current-session-list div, #upcoming-session-list div, #past-session-list div {
+    display: grid;
+    grid-template-columns: 40% 21% 22% 10% 7%;
+    justify-items: center;
+  }
+  #current-session-list div p:nth-child(4), #upcoming-session-list div p:nth-child(4), #past-session-list div p:nth-child(4) {
+    display: none;
+  }
+  .session-top {
+    padding: 0.4rem 1rem 0.4rem 1rem;
+  }
+}
 /*& ADD - EDIT ------------------------- */
 .session-new-page .last-first-name input {
   width: 26rem !important;
@@ -160,13 +201,60 @@
   background-color: white;
   border-bottom: 3px solid var(--highlight--04);
   border-radius: 1rem;
-  overflow: hidden;
   margin-bottom: 3rem;
 }
 .module-area .top {
   width: 100%;
   background: var(--gradient-color-02);
   height: 3rem;
+}
+
+#student-session {
+  position: relative;
+}
+#student-session #add-student-btn {
+  background: var(--gradient-color-02);
+  width: 12rem;
+  height: 2.8rem;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  bottom: 0;
+  right: 0;
+  translate: 0 1.4rem;
+  cursor: pointer;
+  transition: ease-in-out 0.6s;
+}
+#student-session #add-student-btn:hover {
+  background: var(--gradient-color-01);
+}
+
+#module-session {
+  position: relative;
+}
+#module-session #add-module-btn {
+  background: var(--gradient-color-02);
+  width: 12rem;
+  height: 2.8rem;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  bottom: 0;
+  right: 0;
+  translate: 0 1.4rem;
+  cursor: pointer;
+  transition: ease-in-out 0.6s;
+}
+#module-session #add-module-btn:hover {
+  background: var(--gradient-color-01);
 }
 
 .detail-session {
@@ -181,6 +269,10 @@
 .detail-session .top a {
   color: white;
   font-size: 1.3rem;
+  transition: ease-in-out 0.3s;
+}
+.detail-session .top a:hover {
+  color: var(--highlight--03);
 }
 .detail-session .content {
   padding: 1.5rem;
@@ -191,6 +283,12 @@
 .detail-session .content p span {
   color: #fe7ea5;
   font-weight: 700;
+}
+.detail-session p:last-child a {
+  color: var(--black-color);
+}
+.detail-session p:last-child a:hover {
+  color: var(--highlight--03);
 }
 
 .module-session {
@@ -209,31 +307,18 @@
   display: flex;
   flex-direction: column;
 }
-.module-session div {
+.module-session .content div {
   display: flex;
   justify-content: space-between;
 }
-.module-session a {
+.module-session .content div a {
   color: var(--black-color);
 }
-.module-session i {
+.module-session .content div i {
   color: #fe7ea5;
 }
-.module-session .add-el {
-  background: var(--gradient-color-02);
-  width: 12rem;
-  height: 2.8rem;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  right: 0;
-  border-top-left-radius: 0.5rem;
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-  translate: -46px -15px;
-  cursor: pointer;
-  transition: ease-in-out 0.3s;
+.module-session .content div i:hover {
+  color: var(--highlight--03);
 }
 
 .student-session {
@@ -258,27 +343,14 @@
 .student-session .content a {
   color: var(--black-color);
 }
+.student-session .content a:hover {
+  color: var(--highlight--03);
+}
 .student-session .content i {
   color: #fe7ea5;
 }
-.student-session .add-el {
-  background: var(--gradient-color-02);
-  width: 12rem;
-  height: 2.8rem;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-top-left-radius: 0.5rem;
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-  translate: 350px 27px;
-  cursor: pointer;
-  transition: ease-in-out 0.3s;
-}
-
-.add-el:hover {
-  background: var(--gradient-color-01);
+.student-session .content i:hover {
+  color: var(--highlight--03);
 }
 
 .add-student {
@@ -303,8 +375,21 @@
 .add-student a {
   color: var(--black-color);
 }
+.add-student a:hover {
+  color: var(--highlight--03);
+}
 .add-student i {
   color: #fe7ea5;
+}
+.add-student i:hover {
+  color: var(--highlight--03);
+}
+
+#student-session span {
+  color: var(--black-color);
+}
+#student-session span:hover {
+  color: var(--highlight--03);
 }
 
 .add-module {
@@ -319,6 +404,27 @@
   display: flex;
   row-gap: 1rem;
   flex-direction: column;
+}
+
+#btn-submit-module {
+  background-color: red !important;
+  color: #fe7ea5;
+}
+
+@media screen and (max-width: 1300px) {
+  .module-areas {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    grid-template: "detail " "student" "add-s" "module" "add-m";
+    margin: 3rem 3rem;
+    column-gap: 5rem;
+    row-gap: 2rem;
+  }
+  .session-detail-page #top {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 /*# sourceMappingURL=sessionPage.css.map */

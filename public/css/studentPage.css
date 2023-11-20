@@ -10,6 +10,9 @@
   color: var(--highlight--04);
   font-size: var(--interm-font-size);
 }
+.student-index-page #title-add .fa-user-plus:hover {
+  color: var(--highlight--03);
+}
 
 .student-index-page #top {
   display: grid;
@@ -68,12 +71,24 @@
 #student-list p:nth-child(1) a {
   font-weight: 600;
   color: var(--black-color);
-  /* font-size: var(--normal-font-size); */
+}
+#student-list p:nth-child(1) a:hover {
+  color: var(--highlight--03);
 }
 
 #student-list p:nth-child(2) a {
   font-weight: 600;
   color: var(--highlight--04);
+}
+#student-list p:nth-child(2) a:hover {
+  color: var(--highlight--03);
+}
+
+.pagination span a {
+  color: var(--highlight--01);
+}
+.pagination span a:hover {
+  color: var(--highlight--03);
 }
 
 /*& NEW ----------------------------- */
@@ -131,15 +146,14 @@
   translate: -20px 39px;
   z-index: -1;
 }
-
-#back-right {
+#back-left:after {
+  content: "";
   background-color: var(--highlight--03);
   width: 60px;
   height: 30px;
   position: absolute;
-  right: 0;
-  transform: rotate(-25deg);
-  translate: -457px 39px;
+  transform: rotate(-50deg);
+  translate: 490px -228px;
   z-index: -1;
 }
 
@@ -245,6 +259,17 @@
   }
 }
 /*& DETAIL ----------------------------- */
+.student-index-page #top {
+  display: flex;
+  justify-content: space-between;
+}
+.student-index-page #top a {
+  color: white;
+  transition: ease-in-out 0.3s;
+}
+.student-index-page #top a:hover {
+  color: var(--highlight--05);
+}
 .student-index-page .module-areas {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -256,6 +281,35 @@
 }
 .student-index-page .module-areas .detail-session {
   width: 50%;
+}
+.student-index-page .module-areas .detail-session .top a:nth-child(1):hover {
+  color: var(--highlight--03);
+}
+.student-index-page .module-areas .detail-session .confirm-delete {
+  border: 1px solid var(--highlight--05);
+  background-color: white;
+  padding: 1.5rem;
+  line-height: 2rem;
+}
+.student-index-page .module-areas .detail-session #actions {
+  display: flex;
+  column-gap: 1rem;
+}
+.student-index-page .module-areas .detail-session #actions a {
+  color: green;
+}
+.student-index-page .module-areas .detail-session #actions a:hover {
+  color: var(--highlight--03);
+}
+.student-index-page .module-areas .detail-session #actions span {
+  margin-right: 0.3rem;
+}
+.student-index-page .module-areas .detail-session #actions span i {
+  cursor: pointer;
+  color: var(--highlight--04);
+}
+.student-index-page .module-areas .detail-session #actions span i:hover {
+  color: var(--highlight--03);
 }
 .student-index-page .module-areas .student-session .content-s {
   padding: 1.5rem;

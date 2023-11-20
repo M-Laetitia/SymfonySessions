@@ -5,7 +5,6 @@
 /*& INDEX----------------------------- */
 
 
-
 .student-index-page #title-add h1{
     color: var(--highlight--04);
 }
@@ -13,6 +12,10 @@
 .student-index-page #title-add .fa-user-plus {
     color: var(--highlight--04);
     font-size: var(--interm-font-size) ;
+
+    &:hover {
+        color:var(--highlight--03);
+    }
 }
 
 .student-index-page #top {
@@ -71,13 +74,43 @@
 #student-list p:nth-child(1) a{
     font-weight: 600;
     color: var(--black-color);
-    /* font-size: var(--normal-font-size); */
+
+    &:hover {
+        color:var(--highlight--03);
+    }
+
 }
 
 #student-list p:nth-child(2) a{
     font-weight: 600;
     color: var(--highlight--04);
+    &:hover {
+        color:var(--highlight--03);
+    }
+  
 }
+
+.pagination {
+
+    span {
+        a {
+        color: var(--highlight--01);    
+            &:hover {
+                color: var(--highlight--03);
+            }
+        }
+
+    }
+}
+
+@media screen and (max-width: 768px) {
+ 
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    
+}
+
 
 
 /*& NEW ----------------------------- */
@@ -147,17 +180,18 @@ $width-form: 35rem;
     transform: rotate(25deg);
     translate: -20px 39px;
     z-index: -1;
-}
 
-#back-right{
-    background-color: var(--highlight--03);
-    width: 60px;
-    height: 30px;
-    position: absolute;
-    right: 0;
-    transform: rotate(-25deg);
-    translate: -457px 39px;
-    z-index: -1;
+    &:after {
+        content: "";
+        background-color: var(--highlight--03);
+        width: 60px;
+        height: 30px;
+        position: absolute;
+        transform: rotate(-50deg);
+        translate: 490px -228px;
+        z-index: -1;
+        
+    }
 }
 
 #submit-btn-form{
