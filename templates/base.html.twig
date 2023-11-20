@@ -26,8 +26,6 @@
 
 
             <link rel="stylesheet" href="{{asset('css/general.css')}}">
-            
-
 
         {% endblock %}
 
@@ -71,22 +69,21 @@
 
             <div id="user-panel">
                 {% if app.user %}
-                    <a href="#"><i class="fa-solid fa-user"></i></a>
-                    <a href=" {{ path('app_logout') }}"><i class="ri-logout-circle-r-line"></i></a>
 
-                    
-                    <a href="{{ path('show_user', {'id': app.user.id }) }}">profil</a>
+                <div class="detail">
+
                     <div id="avatarImg">
-                        {# <img src="{{ asset('images/avatars/' ~ user.avatar) }}" alt="image profil"> #}
+                        <img src="{{ asset('images/avatars/' ~ app.user.avatar) }}" alt="image profil">
                     </div>
 
+                    <a  id="pseudo" href="{{ path('show_user', {'id': app.user.id }) }}">{{app.user}}</a>
+                    <a id="logout" href=" {{ path('app_logout') }}"><i class="ri-logout-circle-r-line"></i> Log out</a>
 
+                </div>
 
                 {% else %}
                     <a href=" {{ path('app_login') }}">Se connecter</a>
                     <a href=" {{ path('app_register') }}">S'enregistrer'</a>
-                    
-                    
                 {% endif %}
              
             </div>
@@ -105,6 +102,14 @@
          {# Jquery #}
          <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="{{ asset('js/script.js') }}"></script>
+
+        <script>
+
+            //^ Keep style on pages ---------------------
+
+            
+
+        </script>
 
     </body>
 
