@@ -24,9 +24,24 @@
                     
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('edit_student', {'id': student.id }) }}"><i class="ri-file-edit-fill"></i></a>
-                        <a href="{{ path('delete_student', {'id': student.id }) }}"<i class="ri-close-circle-fill"></i></a><br>
+                        <a href="#"<i id="delete-student-popup" class="ri-close-circle-fill"></i></a><br>
                     {% endif %}
                 </div>
+
+
+                <div class="confirm-delete" style="display:none">
+                    <div>
+                        <p>Are you sure you want to delete this student, this action can't be undone</p>
+                        <div id="actions">
+                            
+                            <a href="{{ path('delete_student', {'id': student.id }) }}"><p> <span id="confirm-delete"><i class="ri-checkbox-circle-fill"></i></span>confirm</p></a>
+                            <a  id="cancel-delete" href="#"><p><span><i class="ri-close-circle-fill"></i></span>cancel</p></a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="content">
                     <p> <span>Name : </span>{{ student}}</p>
                     <p> <span>Gender : </span> {{student.sexe}} </p>
@@ -37,6 +52,10 @@
                     <p><span>Age : </span>{{ student.age}}  years old</p>
                 </div>
             </div>
+
+
+
+           
 
             <div class="module-area student-session ">
                 <div class="top">

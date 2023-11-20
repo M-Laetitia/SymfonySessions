@@ -177,3 +177,25 @@
         );
 
     });
+
+
+    
+    //^ Show/hide past sessions (list)---------------------
+
+    $(document).ready(function () {
+        $('#delete-student-popup').click(function () {
+            console.log("ok")
+                $('.confirm-delete').slideToggle();
+            },
+            
+        );
+
+        $('#cancel-delete').click(function () {
+            console.log("ok")
+                $('.confirm-delete').slideToggle();
+            },
+            
+        );
+
+    });
+
