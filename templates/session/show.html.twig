@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détail session{% endblock %}
+{% block title %}Detail session{% endblock %}
 
 {% block body %}
 
-    <div class="main-content-page session-index-page">
+    <div class="main-content-page session-index-page session-detail-page">
 
         <div id="title-add">
             <h1>Detail session</h1>
@@ -36,7 +36,7 @@
 
      
 
-            <div class="module-area student-session ">
+            <div id="student-session" class="module-area student-session ">
                 <div class="top">
                     <p>Students registered</p>
                     <p>Action</p>
@@ -48,7 +48,7 @@
                         {% for student in session.students %}
 
                         <div>
-                            <a href="{{ path('show_student', {'id': student.id }) }}">• {{student}}</a>
+                            <a href="{{ path('show_student', {'id': student.id }) }}">• <span>{{student}}</span></a>
                             <a href="{{ path('remove_student_from_session', {'session': session.id, 'student': student.id}) }}"><i class="ri-close-circle-line"></i></a>
 
                         </div>
@@ -67,7 +67,7 @@
 
             </div>
 
-            <div class="module-area module-session ">
+            <div id="module-session" class="module-area module-session ">
                 <div class="top">
                     <p>Module</p>
                     {# <p>Duration</p> #}
@@ -127,8 +127,8 @@
             
                         {% for module in formAddProgramme.moduleFormation %}
                           
-                        <p> {{ form_row(module.duration) }}</p>
-                        <p>{{ form_row(module.moduleFormation) }}</p>
+                            <p> {{ form_row(module.duration) }}</p>
+                            <p>{{ form_row(module.moduleFormation) }}</p>
 
                         <div id="submit-btn-form">
                             {{ form_row(module.Validate) }}
@@ -141,10 +141,7 @@
             </div>
 
         </div>
-            
-        <script>
-            
-        </script>
+
 
         
     </div>
