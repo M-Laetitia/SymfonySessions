@@ -19,27 +19,27 @@
             <div id="header-top"></div>
             {{ form_start(formAddStudent) }}
             <div id="name-student-form">
-                <div id="back-left"></div>
-                <div id="back-right"></div>
-                    <i class="fa-solid fa-user-plus"></i>
-                    <p>NAME :</p>
-                    <div class="last-first-name">{{ form_row(formAddStudent.lastName) }} {{ form_row(formAddStudent.firstName) }}</div>
-                </div>
-
-        
-                <div id="inputs-form-student">
+                <i class="fa-solid fa-user-plus"></i>
+                <p>NAME :</p>
+                <div class="last-first-name">{{ form_row(formAddStudent.lastName) }} {{ form_row(formAddStudent.firstName) }}</div>
+            </div>
+            
+            <div id="back-left"></div>
+            <div id="back-right"></div>
+            
+            <div id="inputs-form-student">
+                <div>
                     <div>
-                        <div>
-                            {{ form_label(formAddStudent.sexe) }}
-                            {{ form_widget(formAddStudent.sexe) }}
-                        </div>
-                        <div>
-                            
-                            {{ form_row(formAddStudent.birthday) }}
-                        </div>
-
+                        {{ form_label(formAddStudent.sexe) }}
+                        {{ form_widget(formAddStudent.sexe) }}
                     </div>
-
+                    <div>
+                        
+                        {{ form_row(formAddStudent.birthday) }}
+                    </div>
+                    
+                </div>
+                
                     <div>
                         {{ form_row(formAddStudent.email) }}
                         {{ form_row(formAddStudent.phoneNumber) }}
