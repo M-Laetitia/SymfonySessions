@@ -68,7 +68,7 @@
                 <div class="upcoming">
                     <p>Upcoming session/s :</p>
                     {% if upcomingSessions | length > 0 %}
-                        {% for session in currentSessions  %}
+                        {% for session in upcomingSessions  %}
                             <div>
                                 <p>• {{session}} ( {{session.startDate|date("d.m.Y")}} - {{session.endDate|date("d.m.Y")}} ) </p>
                                 
