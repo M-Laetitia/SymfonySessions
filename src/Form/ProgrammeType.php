@@ -31,6 +31,7 @@ class ProgrammeType extends AbstractType
                     'message' => 'The duration must be a number greater than zero.'
                 ]),
             ],
+            'label' => 'Duration (days): ', 
             'attr' => ['min' => 0],
         ])
 
@@ -39,11 +40,12 @@ class ProgrammeType extends AbstractType
             'choice_label' => 'name', 
             'placeholder' => 'Choose a module', // Optional, adds an empty option at the beginning
             'choices' => $options['modules'],  
+            'label' => 'Module : ', 
         ])
 
         ->add('Validate', SubmitType::class, [
             'attr' => [
-                'class' => 'btn-submit'
+                'class' => 'btn-submit-module'
             ]
         ]);
     }
