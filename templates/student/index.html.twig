@@ -28,7 +28,7 @@
 
         <div class="session-list" id="student-list"> 
         
-                {% for student in students %}
+                {% for student in pagination %}
                     <div class="list-ind-student">
                         
                     {# <p>{{student.sessions.formation.name}}</p> #}
@@ -62,25 +62,14 @@
                     <div class="line"></div>
                 {% endfor %}
             
-
+              
         </div>
 
-        <h1>test</h1>
-            {% for user in pagination %}
-                {{user}} <br>
-            {% endfor %}
-
-
-            {# display navigation #}
-            <div class="navigation">
-                {{ knp_pagination_render(pagination) }}
-            </div>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
 
     </div>
-
-  
-  
-
 
     </div>
 
