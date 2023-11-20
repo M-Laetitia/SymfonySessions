@@ -65,8 +65,20 @@
 
         </div>
 
+        <h1>test</h1>
+            {% for user in pagination %}
+                {{user}} <br>
+            {% endfor %}
+
+
+            {# display navigation #}
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+
     </div>
 
+  
   
 
 

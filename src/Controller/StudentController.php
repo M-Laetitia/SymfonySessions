@@ -10,6 +10,7 @@ use App\Service\ValidationService;
 use App\Repository\SessionRepository;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,12 +19,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class StudentController extends AbstractController
 {
     #[Route('/student', name: 'app_student')]
-    public function index(StudentRepository $studentRepository): Response
+    public function index(StudentRepository $studentRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $students = $studentRepository->findBy([], ["lastName" => "ASC"]);
+
+        $pagination = $paginator->paginate(
+            $students, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            3 /*limit per page*/
+        );
+
+
+
         return $this->render('student/index.html.twig', [
-            // 'controller_name' => 'StudentController',
-            'students' => $students
+            'students' => $students,
+            'pagination' => $pagination
         ]);
     }
 
@@ -92,27 +102,25 @@ class StudentController extends AbstractController
         ]);
     }
 
-
-    /**
-     * Export to PDF
-     *
-     * @Route("/pdf", name="acme_demo_pdf")
-     */
-    public function pdfAction(Pdf $pdf): Response
+    
+    public function listAction(EntityManagerInterface $em, PaginatorInterface $paginator, Request $request)
     {
-        $html = $this->renderView('student/show.html.twig');
+        $dql   = "SELECT a FROM AcmeMainBundle:Article a";
+        $query = $em->createQuery($dql);
 
-        $filename = sprintf('test-%s.pdf', date('Y-m-d'));
-
-        return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-            200,
-            [
-                'Content-Type'        => 'application/pdf',
-                'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
-            ]
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            3 /*limit per page*/
         );
+
+        // parameters to template
+        return $this->render('article/list.html.twig', ['pagination' => $pagination]);
     }
+
+
+
+    
 }
 
 
