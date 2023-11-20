@@ -4,7 +4,7 @@
     $(document).ready(function () {
         $('#show-past-sessions-btn').click(function () {
             console.log("ok")
-                $('#past-sessions-container').toggle();
+                $('#past-sessions-container').slideToggle();
             },
             
         );
@@ -12,7 +12,7 @@
     });
 
 
-
+    //^ nav bar icon hover/active -----------------------
     $(document).ready(function () {
         // On hover, toggle classes for both i and a elements
         $('#team-icon, #team-link').hover(
@@ -108,7 +108,7 @@
     //^ show/ hide sessions ---------------------
 
     $(document).ready(function () {
-            
+                
         $('#currentUpBtn').click(function () {
             console.log("ok")
                 $('#current-session-list').slideToggle();
@@ -127,35 +127,37 @@
 
     });
 
+    
+
     // lazy loading past sessions
 
-    $(document).ready(function () {
-        // Lorsque le bouton est cliqué
-        $('#upcomingUpBtn').click(function () {
-            // Vérifier si les sessions à venir n'ont pas déjà été chargées
-            if (!$('#upcoming-session-list').hasClass('sessions-loaded')) {
-                // Charger les sessions à venir
-                $.ajax({
-                    url: '/', // Remplacez par votre URL de chargement des données
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function (data) {
-                        // Manipuler les données JSON (par exemple, les ajouter à la page)
-                    displayUpcomingSessions(data);
+    // $(document).ready(function () {
+    //     // Lorsque le bouton est cliqué
+    //     $('#upcomingUpBtn').click(function () {
+    //         // Vérifier si les sessions à venir n'ont pas déjà été chargées
+    //         if (!$('#upcoming-session-list').hasClass('sessions-loaded')) {
+    //             // Charger les sessions à venir
+    //             $.ajax({
+    //                 url: '/', // Remplacez par votre URL de chargement des données
+    //                 method: 'GET',
+    //                 dataType: 'json',
+    //                 success: function (data) {
+    //                     // Manipuler les données JSON (par exemple, les ajouter à la page)
+    //                 displayUpcomingSessions(data);
     
-                        // Ajouter une classe pour indiquer que les sessions à venir ont été chargées
-                        $('#upcoming-session-list').addClass('sessions-loaded');
-                    },
-                    error: function (error) {
-                        console.error('Erreur lors du chargement des sessions à venir :', error);
-                    }
-                });
-            }
+    //                     // Ajouter une classe pour indiquer que les sessions à venir ont été chargées
+    //                     $('#upcoming-session-list').addClass('sessions-loaded');
+    //                 },
+    //                 error: function (error) {
+    //                     console.error('Erreur lors du chargement des sessions à venir :', error);
+    //                 }
+    //             });
+    //         }
     
-            // Afficher ou masquer les sessions à venir en fonction de l'état actuel
-            $('#upcoming-session-list').slideToggle();
-        });
-    });
+    //         // Afficher ou masquer les sessions à venir en fonction de l'état actuel
+    //         $('#upcoming-session-list').slideToggle();
+    //     });
+    // });
 
 
     
