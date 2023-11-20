@@ -39,13 +39,6 @@
                         <p>{{ session.nbPlacebooked }} / {{session.nbPlaceTotal}}</p>
                         <p>{{ session.nbPlaceRemaining }}</p>
                         <p><a href="{{ path('show_session', {'id': session.id }) }}"> <i class="ri-git-repository-commits-fill"></i></a></p>
-                        
-                        {# {{ session.students | length }} #}
-        
-                        {# {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('edit_session', {'id': session.id }) }}">Editer</a>
-                            <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
-                        {% endif %} #}
                     </div>
             {% endfor %}                    
         </div>
@@ -65,13 +58,6 @@
                     <p>{{ session.nbPlaceRemaining }}</p>
                     <p><a href="{{ path('show_session', {'id': session.id }) }}"> <i class="ri-git-repository-commits-fill"></i></a></p>
                 </div>
-        
-                    {# {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('edit_session', {'id': session.id }) }}">Editer</a>
-                        <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
-                    {% endif %} #}
-                    
-           
             {% endfor %}
         </div>
 
@@ -83,7 +69,7 @@
 
             <div class="session-top" id="past-session-top">
                 <h2>Past Sessions</h2>
-                <i class="fa-solid fa-chevron-up"></i>
+                
             </div>
 
             <div class="session-list" id="past-session-list">
@@ -96,28 +82,13 @@
                         <p>{{ session.nbPlacebooked }} / {{session.nbPlaceTotal}} </p>
                         <p></p>
                         <p></p>
-    
                     </div>
-        
-                        {# {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('edit_session', {'id': session.id }) }}">Editer</a>
-                            <a href="{{ path('delete_session', {'id': session.id }) }}">Supprimer</a><br>
-                        {% endif %} #}
-        
-                   
                 {% endfor %}
-
             </div>
-
         </div>
 
-        <h3>test</h3>
 
-
-       
-        
     </div>
-
 
 
 {% endblock %}
